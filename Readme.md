@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
-* Студент: [Екатерина Рыбина](https://up.htmlacademy.ru/react-individual/3/user/26126).
-* Наставник: `Неизвестно`.
+- Студент: [Екатерина Рыбина](https://up.htmlacademy.ru/react-individual/3/user/26126).
+- Наставник: [Евгений Колегов](https://htmlacademy.ru/profile/kollegoff).
 
 ---
 
