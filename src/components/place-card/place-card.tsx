@@ -1,17 +1,40 @@
 import {Link} from 'react-router-dom';
+import {useState} from 'react';
 import {AppRoute} from '../app/const';
+import {Offer} from '../../types/offer-type';
+import {getStarsStyle} from './const';
+type PropPlaceCard = {
+  offer: Offer;
+}
 
-function PlaceCard(): JSX.Element {
+function PlaceCard(props: PropPlaceCard): JSX.Element {
+  const {offer} = props;
+  const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
+
+  const [, setActiveCard] = useState({});
+
+  function handleMouseOver() {
+    setActiveCard(offer);
+  }
+  function handleMouseOut() {
+    setActiveCard({});
+  }
   return (
-    <article className="cities__card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+    <article
+      className="cities__card place-card"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
+      {isPremium ?
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div> : null}
+
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={AppRoute.Offer}>
+        <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={previewImage}
             width={260}
             height={200}
             alt="Place image"
@@ -21,13 +44,14 @@ function PlaceCard(): JSX.Element {
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€120</b>
+            <b className="place-card__price-value">€{price}</b>
             <span className="place-card__price-text">
           /&nbsp;night
             </span>
           </div>
           <button
-            className="place-card__bookmark-button button"
+            className= {isFavorite ?
+              'place-card__bookmark-button button place-card__bookmark-button--active' : 'place-card__bookmark-button button'}
             type="button"
           >
             <svg
@@ -42,16 +66,16 @@ function PlaceCard(): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width:getStarsStyle(rating) }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="#">
-        Beautiful &amp; luxurious apartment at great location
+          <Link to={`${AppRoute.Offer}/${id}`}>
+            {title}
           </Link>
         </h2>
-        <p className="place-card__type">Apartment</p>
+        <p className="place-card__type">{type}</p>
       </div>
     </article>
   );
