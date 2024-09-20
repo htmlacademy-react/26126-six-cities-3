@@ -1,9 +1,13 @@
 import {Link} from 'react-router-dom';
-import Logo from '../logo/logo';
+import Logo from '../../components/logo/logo';
+import {Helmet} from 'react-helmet-async';
 
 function OfferNotLogged(): JSX.Element {
   return (
     <div className="page">
+      <Helmet>
+        <title>6 cities: offer</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
