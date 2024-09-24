@@ -3,25 +3,35 @@ import {useState} from 'react';
 import {AppRoute} from '../app/const';
 import {Offer} from '../../types/offer-type';
 import {getStarsStyle} from './const';
+import {MouseEvent} from 'react';
+
 type PropPlaceCard = {
   offer: Offer;
+  onListItemHover: (listItemId: string) => void;
+  onListItemOut: () => void;
 }
 
 function PlaceCard(props: PropPlaceCard): JSX.Element {
-  const {offer} = props;
+  const {offer, onListItemHover, onListItemOut} = props;
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
 
   const [, setActiveCard] = useState({});
 
-  function handleMouseOver() {
+  function handleMouseOver(event: MouseEvent<HTMLLIElement>) {
     setActiveCard(offer);
+    event.preventDefault();
+    if(event.currentTarget.dataset.id) {
+      onListItemHover(event.currentTarget.dataset.id);
+    }
   }
   function handleMouseOut() {
     setActiveCard({});
+    onListItemOut();
   }
   return (
     <article
       className="cities__card place-card"
+      data-id={id}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
