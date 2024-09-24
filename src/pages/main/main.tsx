@@ -1,8 +1,11 @@
+import {useState} from 'react';
 import CardsList from '../../components/cards-list/cards-list';
 import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {Offers} from '../../types/offer-type';
+
+import {Offer, Offers} from '../../types/offer-type';
+import Map from '../../components/map/map';
 
 type MainProps = {
   cardsCount: number;
@@ -10,6 +13,16 @@ type MainProps = {
 }
 
 function MainPage({cardsCount, offers}: MainProps): JSX.Element {
+  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
+    undefined
+  );
+  const handleListItemHover = (listItemId: string) => {
+    const currentPin = offers.find((offer) => offer.id === listItemId);
+    setSelectedOffer(currentPin);
+  };
+  const handleListItemOut = () => {
+    setSelectedOffer(undefined);
+  };
   return(
     <div className="page page--gray page--main">
       <Helmet>
@@ -115,11 +128,13 @@ function MainPage({cardsCount, offers}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={offers}/>
+                <CardsList offers={offers} onListItemHover={handleListItemHover} onListItemOut={handleListItemOut}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map" >
+                <Map offers={offers} selectedOffer={selectedOffer}/>
+              </section>
             </div>
           </div>
         </div>
