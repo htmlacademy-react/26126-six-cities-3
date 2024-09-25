@@ -1,13 +1,16 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
-import {City, Offers, Offer} from '../../types/offer-type';
+import {City, OfferType} from '../../types/offer-type';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, EMPTY_LOCATION} from '../map/const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  offers: Offers;
-  selectedOffer: Offer | undefined;
+  offers: OfferType[];
+  selectedOffer: OfferType | undefined;
+  mapWidth: string;
+  mapHeight: string;
+  mapMargin: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -23,13 +26,13 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {offers, selectedOffer} = props;
+  const {offers, selectedOffer, mapWidth, mapHeight, mapMargin} = props;
 
   const selectedCity = 'Amsterdam';
 
   const offer = offers.find((item)=> item.city.name === selectedCity);
 
-  const getCityFromOffer = (somePin:Offer|undefined):City=> {
+  const getCityFromOffer = (somePin:OfferType|undefined):City=> {
     if(somePin) {
       const city = somePin.city;
       return city;
@@ -64,7 +67,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, offers, selectedOffer]);
 
-  return <div style={{height: '100%'}} ref={mapRef}></div>;
+  return <div style={{height: mapHeight, width:mapWidth, margin: mapMargin}} ref={mapRef}></div>;
 }
 
 export default Map;
