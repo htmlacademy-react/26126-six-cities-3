@@ -3,17 +3,18 @@ import CardsList from '../../components/cards-list/cards-list';
 import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
+import {CITIES} from '../main/const';
 
-import {Offer, Offers} from '../../types/offer-type';
+import {OfferType} from '../../types/offer-type';
 import Map from '../../components/map/map';
 
 type MainProps = {
   cardsCount: number;
-  offers: Offers;
+  offers: OfferType[];
 }
 
 function MainPage({cardsCount, offers}: MainProps): JSX.Element {
-  const [selectedOffer, setSelectedOffer] = useState<Offer | undefined>(
+  const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
   const handleListItemHover = (listItemId: string) => {
@@ -63,36 +64,15 @@ function MainPage({cardsCount, offers}: MainProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
+              {
+                CITIES.map((city)=>(
+                  <li key={city} className="locations__item">
+                    <Link className="locations__item-link tabs__item" to="#">
+                      <span>{city}</span>
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </section>
         </div>
@@ -133,7 +113,11 @@ function MainPage({cardsCount, offers}: MainProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" >
-                <Map offers={offers} selectedOffer={selectedOffer}/>
+                <Map offers={offers} selectedOffer={selectedOffer}
+                  mapWidth = {'auto'}
+                  mapHeight = {'100%'}
+                  mapMargin ={'auto'}
+                />
               </section>
             </div>
           </div>

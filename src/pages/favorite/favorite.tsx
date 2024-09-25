@@ -1,10 +1,10 @@
 import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {Offers} from '../../types/offer-type';
+import {OfferType} from '../../types/offer-type';
 
 type FavoriteProp = {
-  favoriteOffers: Offers;
+  favoriteOffers: OfferType[];
 }
 
 function Favorite(props: FavoriteProp): JSX.Element {

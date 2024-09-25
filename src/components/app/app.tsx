@@ -9,15 +9,15 @@ import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
 
-import {Offers} from '../../types/offer-type';
-import {Reviews} from '../../types/review-type';
+import {OfferType} from '../../types/offer-type';
+import {Review} from '../../types/review-type';
 
 
 type AppProps = {
   cardsCount: number;
-  offers: Offers;
-  favoriteOffers: Offers;
-  reviews: Reviews;
+  offers: OfferType[];
+  favoriteOffers: OfferType[];
+  reviews: Review[];
 }
 
 function App({cardsCount, offers, favoriteOffers, reviews}:AppProps) : JSX.Element {
@@ -45,7 +45,7 @@ function App({cardsCount, offers, favoriteOffers, reviews}:AppProps) : JSX.Eleme
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<Offer reviews={reviews}/>}
+            element={<Offer reviews={reviews} offers={offers}/>}
           />
           <Route
             path='*'

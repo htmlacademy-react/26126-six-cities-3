@@ -1,9 +1,9 @@
-import {Offers} from '../../types/offer-type';
+import {OfferType} from '../../types/offer-type';
 import PlaceCard from '../place-card/place-card';
 
 
 type CardsListProp = {
-  offers: Offers;
+  offers: OfferType[];
   onListItemHover: (listItemId: string) => void;
   onListItemOut: () => void;
 }

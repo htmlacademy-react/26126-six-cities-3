@@ -4,13 +4,11 @@ function ReviewForm(): JSX.Element {
   const [, setReview] = useState('');
   const handleReviewChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(evt.target.value);
-    //console.log(evt.target.value);
   };
 
   const [, setRating] = useState(0);
   const handleRatingButtonClick = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(evt.target.value));
-    //console.log(Number(evt.target.value));
   };
 
 

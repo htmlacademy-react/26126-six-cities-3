@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import {AppRoute} from '../app/const';
-import {Offer} from '../../types/offer-type';
-import {getStarsStyle} from './const';
+import {OfferType} from '../../types/offer-type';
+import {getStarsStyle} from '../../common';
 import {MouseEvent} from 'react';
 
 type PropPlaceCard = {
-  offer: Offer;
+  offer: OfferType;
   onListItemHover: (listItemId: string) => void;
   onListItemOut: () => void;
 }
