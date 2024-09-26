@@ -3,20 +3,27 @@ import CardsList from '../../components/cards-list/cards-list';
 import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {CITIES} from '../main/const';
+import CitiesList from '../../components/cities-list/cities-list';
 
 import {OfferType} from '../../types/offer-type';
 import Map from '../../components/map/map';
 
+import {getOffersByCity} from '../main/common';
+
 type MainProps = {
-  cardsCount: number;
-  offers: OfferType[];
+ cities: string[];
+ actualCity: string;
+ offers: OfferType[];
 }
 
-function MainPage({cardsCount, offers}: MainProps): JSX.Element {
+function MainPage({cities, actualCity, offers}: MainProps): JSX.Element {
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>(
     undefined
   );
+
+  const filtredOffersByCity = getOffersByCity(actualCity, offers);
+  const cardsCount = filtredOffersByCity.length;
+
   const handleListItemHover = (listItemId: string) => {
     const currentPin = offers.find((offer) => offer.id === listItemId);
     setSelectedOffer(currentPin);
@@ -63,24 +70,14 @@ function MainPage({cardsCount, offers}: MainProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {
-                CITIES.map((city)=>(
-                  <li key={city} className="locations__item">
-                    <Link className="locations__item-link tabs__item" to="#">
-                      <span>{city}</span>
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
+            <CitiesList cities={cities}/>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{cardsCount} places to stay in Amsterdam</b>
+              <b className="places__found">{cardsCount} {cardsCount > 1 ? 'places' : 'place'} to stay in {actualCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -108,15 +105,16 @@ function MainPage({cardsCount, offers}: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={offers} onListItemHover={handleListItemHover} onListItemOut={handleListItemOut}/>
+                <CardsList offers={filtredOffersByCity} onListItemHover={handleListItemHover} onListItemOut={handleListItemOut}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" >
-                <Map offers={offers} selectedOffer={selectedOffer}
+                <Map offers={filtredOffersByCity} selectedOffer={selectedOffer}
                   mapWidth = {'auto'}
                   mapHeight = {'100%'}
                   mapMargin ={'auto'}
+                  actualCity = {actualCity}
                 />
               </section>
             </div>
