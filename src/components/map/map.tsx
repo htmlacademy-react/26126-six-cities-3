@@ -11,6 +11,7 @@ type MapProps = {
   mapWidth: string;
   mapHeight: string;
   mapMargin: string;
+  actualCity: string;
 };
 
 const defaultCustomIcon = new Icon({
@@ -26,11 +27,11 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {offers, selectedOffer, mapWidth, mapHeight, mapMargin} = props;
+  const {offers, selectedOffer, mapWidth, mapHeight, mapMargin, actualCity} = props;
 
-  const selectedCity = 'Amsterdam';
 
-  const offer = offers.find((item)=> item.city.name === selectedCity);
+  const offer = offers.find((item)=> item.city.name === actualCity);
+
 
   const getCityFromOffer = (somePin:OfferType|undefined):City=> {
     if(somePin) {
