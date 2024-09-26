@@ -12,10 +12,11 @@ import {OfferType} from '../../types/offer-type';
 type OfferProps = {
   reviews: Review[];
   offers: OfferType[];
+  actualCity: string;
 }
 
 function Offer(props:OfferProps): JSX.Element {
-  const {reviews, offers} = props;
+  const {reviews, offers, actualCity} = props;
 
 
   const offersNear = offers.slice(0,3);
@@ -197,6 +198,7 @@ function Offer(props:OfferProps): JSX.Element {
               mapWidth = {'1145px'}
               mapHeight = {'579px'}
               mapMargin ={'auto'}
+              actualCity= {actualCity}
             />
           </section>
         </section>

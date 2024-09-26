@@ -50,7 +50,7 @@ function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<Offer reviews={reviews} offers={storeOffers}/>}
+            element={<Offer reviews={reviews} offers={storeOffers} actualCity={actualCity}/>}
           />
           <Route
             path='*'
