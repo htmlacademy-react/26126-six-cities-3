@@ -7,6 +7,7 @@ import {favoriteOffers} from './mocks/favorite-offers';
 import {reviews} from './mocks/reviews';
 import {CITIES} from './components/cities-list/const';
 import {store} from './store/index';
+import {SORT_TYPES} from './components/sort/const';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,6 +20,7 @@ root.render(
         favoriteOffers = {favoriteOffers}
         reviews = {reviews}
         cities = {CITIES}
+        sortTypes = {SORT_TYPES}
       />
     </Provider>
   </React.StrictMode>

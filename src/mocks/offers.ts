@@ -9,14 +9,14 @@ export const offers:OfferType[] = [
     city: {
       name: 'Paris',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 48.85661,
+        longitude: 2.351499,
         zoom: 8
       }
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.868610000000004,
+      longitude: 2.342499,
       zoom: 8
     },
     isFavorite: false,
@@ -32,14 +32,14 @@ export const offers:OfferType[] = [
     city: {
       name: 'Paris',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 48.85661,
+        longitude: 2.351499,
         zoom: 8
       }
     },
     location: {
-      latitude: 52.3609553943508,
-      longitude: 4.85309666406198,
+      latitude:  48.858610000000006,
+      longitude: 2.330499,
       zoom: 8
     },
     isFavorite: true,
