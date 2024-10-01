@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import {Link, useSearchParams} from 'react-router-dom';
+import {Link, useSearchParams, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import ReviewForm from '../../components/review-form/review-form';
 import {Review} from '../../types/review-type';
@@ -22,8 +22,9 @@ function Offer(props:OfferProps): JSX.Element {
   const [searchParams] = useSearchParams();
   const searchCityParams = searchParams.get('city') || INITIAL_CITY;
   const actualCity = searchCityParams;
+  const params = useParams();
 
-  const activeOffer = useAppSelector((state) => state.activeOffer);
+  const activeOffer = params.id;
   const selectedOffer = offers.find((offer) => offer.id === activeOffer);
   return (
     <div className="page">
