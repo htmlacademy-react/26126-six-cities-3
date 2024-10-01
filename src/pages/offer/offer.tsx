@@ -1,5 +1,5 @@
 import Logo from '../../components/logo/logo';
-import {Link} from 'react-router-dom';
+import {Link, useSearchParams, useParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import ReviewForm from '../../components/review-form/review-form';
 import {Review} from '../../types/review-type';
@@ -7,20 +7,25 @@ import {Review} from '../../types/review-type';
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import CardsList from '../../components/cards-list/cards-list';
-import {OfferType} from '../../types/offer-type';
+import {INITIAL_CITY} from '../../common';
+
+import {useAppSelector} from '../../hooks/index';
 
 type OfferProps = {
   reviews: Review[];
-  offers: OfferType[];
-  actualCity: string;
 }
 
 function Offer(props:OfferProps): JSX.Element {
-  const {reviews, offers, actualCity} = props;
-
-
+  const {reviews} = props;
+  const offers = useAppSelector((state)=>state.offers);
   const offersNear = offers.slice(0,3);
+  const [searchParams] = useSearchParams();
+  const searchCityParams = searchParams.get('city') || INITIAL_CITY;
+  const actualCity = searchCityParams;
+  const params = useParams();
 
+  const activeOffer = params.id;
+  const selectedOffer = offers.find((offer) => offer.id === activeOffer);
   return (
     <div className="page">
       <Helmet>
@@ -194,7 +199,7 @@ function Offer(props:OfferProps): JSX.Element {
           </div>
           <section className="offer__map map" >
             <Map offers={offersNear}
-              selectedOffer={undefined}
+              selectedOffer={selectedOffer}
               mapWidth = {'1145px'}
               mapHeight = {'579px'}
               mapMargin ={'auto'}
@@ -208,7 +213,7 @@ function Offer(props:OfferProps): JSX.Element {
           Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              <CardsList offers={offersNear} onListItemHover={()=>{}} onListItemOut={()=>{}}/>
+              <CardsList offers={offersNear}/>
             </div>
           </section>
         </div>

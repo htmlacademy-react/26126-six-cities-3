@@ -1,12 +1,12 @@
 import {OfferType} from '../../types/offer-type';
-//import {SortTypes} from '../sort/const';
+import {SortTypes} from '../../components/sort/const';
 
 export const getOffersByCity = (city:string, offers:OfferType[]):OfferType[]=>{
   const offersByCity = offers.filter((offer)=>
     offer.city.name === city);
   return offersByCity;
 };
-/*export const getSortedOffers = (offers:OfferType[], sortType:string):OfferType[]=>{
+export const getSortedOffers = (offers:OfferType[], sortType:string):OfferType[]=>{
   const slicedOffers = [...offers];
   switch(sortType){
     case SortTypes.POPULAR:
@@ -23,4 +23,4 @@ export const getOffersByCity = (city:string, offers:OfferType[]):OfferType[]=>{
     default:
       return offers;
   }
-};*/
+};

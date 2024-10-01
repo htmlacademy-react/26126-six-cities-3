@@ -1,13 +1,17 @@
 import Logo from '../../components/logo/logo';
-import {Link} from 'react-router-dom';
+import {Link, useSearchParams} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 import CitiesList from '../../components/cities-list/cities-list';
+import {INITIAL_CITY} from '../../common';
+
 
 type MainProps = {
   cities: string[];
 }
 
 function MainEmpty({cities}: MainProps): JSX.Element {
+  const [searchParams, ] = useSearchParams();
+  const searchCityParams = searchParams.get('city') || INITIAL_CITY;
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -56,8 +60,7 @@ function MainEmpty({cities}: MainProps): JSX.Element {
               <div className="cities__status-wrapper tabs__content">
                 <b className="cities__status">No places to stay available</b>
                 <p className="cities__status-description">
-              We could not find any property available at the moment in
-              Dusseldorf
+              We could not find any property available at the moment in {searchCityParams}
                 </p>
               </div>
             </section>

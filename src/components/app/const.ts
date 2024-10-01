@@ -5,4 +5,4 @@ export enum AppRoute {
   Offer = 'offer'
 }
 
-export const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+

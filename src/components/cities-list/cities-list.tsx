@@ -1,8 +1,6 @@
-import {Link} from 'react-router-dom';
-import {MouseEvent} from 'react';
-
-import {useAppDispatch, useAppSelector} from '../../hooks/index';
-import {selectCity} from '../../store/action';
+import {Link, useSearchParams } from 'react-router-dom';
+import {AppRoute} from '../../components/app/const';
+import {INITIAL_CITY} from '../../common';
 
 type CitiesListProp = {
   cities: string[];
@@ -11,25 +9,21 @@ type CitiesListProp = {
 
 function CitiesList(props: CitiesListProp): JSX.Element {
   const {cities} = props;
-  const dispatch = useAppDispatch();
-  const actualCity = useAppSelector((state) => state.city);
+
+  const [searchParams] = useSearchParams();
+  const searchCityParams = searchParams.get('city') || INITIAL_CITY;
 
 
-  const handleCitySelect = (event: MouseEvent<HTMLLIElement>)=>{
-    const value = event.currentTarget.innerText;
-    dispatch(selectCity(value));
-  };
   return(
     <ul className="locations__list tabs__list">
       {
         cities.map((item)=>(
           <li
-            onClick={handleCitySelect}
             key={item} className="locations__item"
           >
-            <Link className={
-              item === actualCity ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'
-            } to="#"
+            <Link
+              /*onClick={handleCitySelect}*/
+              className={ item === searchCityParams ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'} to={`${AppRoute.Main}?city=${item}`}
             >
               <span>{item}</span>
             </Link>
