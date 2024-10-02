@@ -3,12 +3,10 @@ import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import {MouseEvent} from 'react';
 import {sortOffers} from '../../store/action';
 import {useEffect} from 'react';
+import {SORT_TYPES} from '../../common';
 
-type SortProps = {
-  sortTypes: string[];
-}
 
-function Sort({sortTypes}:SortProps): JSX.Element {
+function Sort(): JSX.Element {
 
   const [sortTypesList, setSortTypesList] = useState(false);
 
@@ -48,7 +46,7 @@ function Sort({sortTypes}:SortProps): JSX.Element {
         </svg>
       </span>
       <ul className={sortTypesList ? 'places__options places__options--custom places__options--opened' : 'places__options places__options--custom'}>
-        {sortTypes.map((type)=>(
+        {SORT_TYPES.map((type:string)=>(
           <li
             onClick={handleSortSelect}
             key={type}

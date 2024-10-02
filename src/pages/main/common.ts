@@ -1,5 +1,5 @@
 import {OfferType} from '../../types/offer-type';
-import {SortTypes} from '../../components/sort/const';
+import {SortTypes} from '../../common';
 
 export const getOffersByCity = (city:string, offers:OfferType[]):OfferType[]=>{
   const offersByCity = offers.filter((offer)=>

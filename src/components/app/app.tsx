@@ -11,16 +11,23 @@ import NotFound from '../not-found/not-found';
 
 import {OfferType} from '../../types/offer-type';
 import {Review} from '../../types/review-type';
-
+import Loading from '../../components/loading/loading';
+import {useAppSelector} from '../../hooks/index';
 
 type AppProps = {
   favoriteOffers: OfferType[];
   reviews: Review[];
   cities: string[];
-  sortTypes: string[];
 }
 
-function App({favoriteOffers, reviews, cities, sortTypes}:AppProps) : JSX.Element {
+function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
+
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  if (isOffersLoading) {
+    return (
+      <Loading />
+    );
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -30,7 +37,6 @@ function App({favoriteOffers, reviews, cities, sortTypes}:AppProps) : JSX.Elemen
             element={
               <MainPage
                 cities={cities}
-                sortTypes={sortTypes}
               />
             }
           />
