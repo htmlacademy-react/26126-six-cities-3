@@ -33,16 +33,18 @@ function Map(props: MapProps): JSX.Element {
   const offer = offers.find((item)=> item.city.name === actualCity);
 
 
-  const getCityFromOffer = (somePin:OfferType|undefined):City=> {
-    if(somePin) {
-      const city = somePin.city;
+  const getCityFromOffer = (someOffer:OfferType|undefined):City=> {
+    if(someOffer) {
+      const city = someOffer.city;
       return city;
     }
     return EMPTY_LOCATION;
   };
 
+  const activeCity = getCityFromOffer(offer);
+
   const mapRef = useRef(null);
-  const map = useMap(mapRef, getCityFromOffer(offer));
+  const map = useMap(mapRef, activeCity);
 
   useEffect(() => {
     if (map) {
