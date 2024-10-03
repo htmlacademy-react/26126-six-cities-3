@@ -1,8 +1,7 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import MainPage from '../../pages/main/main';
 import {AppRoute} from './const';
-import {AuthorizationStatus} from '../private-route/const';
 import Favorite from '../../pages/favorite/favorite';
 import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
@@ -14,6 +13,9 @@ import {Review} from '../../types/review-type';
 import Loading from '../../components/loading/loading';
 import {useAppSelector} from '../../hooks/index';
 
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
+
 type AppProps = {
   favoriteOffers: OfferType[];
   reviews: Review[];
@@ -21,7 +23,7 @@ type AppProps = {
 }
 
 function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
-
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   if (isOffersLoading) {
     return (
@@ -30,7 +32,7 @@ function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
   }
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={'/'}
@@ -48,7 +50,7 @@ function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                status={AuthorizationStatus.Auth}
+                status={authorizationStatus}
               >
                 <Favorite favoriteOffers={favoriteOffers}/>
               </PrivateRoute>
@@ -63,7 +65,7 @@ function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
             element={<NotFound/>}
           />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }
