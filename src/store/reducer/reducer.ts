@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {OfferType} from '../../types/offer-type';
-import {loadOffers, sortOffers, hoverOffer, checkAuthorization, setError, setOffersLoadingStatus} from '../action';
+import {loadOffers, sortOffers, hoverOffer, checkAuthorization, setError, setOffersLoadingStatus, login} from '../action';
 import {INITIAL_SORT} from './const';
 import {AuthorizationStatus} from '../../store/const';
 
@@ -11,15 +11,17 @@ type InitalState = {
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersLoading: boolean;
+  user: string;
 }
 
 const initialState:InitalState = {
   offers: [],
   sort: INITIAL_SORT,
   activeOfferId: '',
-  authorizationStatus: AuthorizationStatus.Auth,
+  authorizationStatus: AuthorizationStatus.NoAuth,
   error: null,
-  isOffersLoading: false
+  isOffersLoading: false,
+  user:''
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +43,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersLoadingStatus, (state, action) => {
       state.isOffersLoading = action.payload;
+    })
+    .addCase(login, (state, action) => {
+      state.user = action.payload;
     });
 });
 
