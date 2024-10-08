@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import App from '../src/components/app/app';
 
 import {favoriteOffers} from './mocks/favorite-offers';
-import {reviews} from './mocks/reviews';
 import {CITIES} from './components/cities-list/const';
 import {store} from './store/index';
 import ErrorMessage from './components/error-message/error-message';
@@ -23,7 +22,6 @@ root.render(
       <ErrorMessage />
       <App
         favoriteOffers = {favoriteOffers}
-        reviews = {reviews}
         cities = {CITIES}
       />
     </Provider>

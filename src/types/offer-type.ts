@@ -23,3 +23,25 @@ export type OfferType = {
   previewImage: string;
   }
 
+  type Host = {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+    }
+
+export type OfferPage = {
+    id: OfferType['id'];
+    title: OfferType['title'];
+    type: OfferType['type'];
+    price: OfferType['price'];
+    isFavorite: OfferType['isFavorite'];
+    isPremium: OfferType['isPremium'];
+    rating: OfferType['rating'];
+    description: string;
+    bedrooms: number;
+    goods: string[];
+    host: Host;
+    images: string[];
+    maxAdults: number;
+  }
+

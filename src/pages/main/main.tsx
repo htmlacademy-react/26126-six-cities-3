@@ -1,16 +1,18 @@
-import CardsList from '../../components/cards-list/cards-list';
 import {useSearchParams} from 'react-router-dom';
+import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
+import {useAppSelector, useAppDispatch} from '../../hooks/index';
+
 import CitiesList from '../../components/cities-list/cities-list';
-import {useAppSelector} from '../../hooks/index';
+import CardsList from '../../components/cards-list/cards-list';
 import Map from '../../components/map/map';
 import MainEmpty from '../../pages/main-empty/main-empty';
-
-import {getOffersByCity, getSortedOffers} from '../main/common';
-import {INITIAL_CITY} from '../../common';
-
 import Header from '../../components/header/header';
 import Sort from '../../components/sort/sort';
+
+import {loadOffer, setCity} from '../../store/action';
+import {getOffersByCity, getSortedOffers} from '../main/common';
+import {INITIAL_CITY} from '../../common';
 
 
 type MainProps = {
@@ -33,6 +35,15 @@ function MainPage({cities}: MainProps): JSX.Element {
 
   const activeOfferId = useAppSelector((state) => state.activeOfferId);
   const selectedOffer = filtredOffers.find((offer) => offer.id === activeOfferId);
+
+  const dispatch = useAppDispatch();
+
+
+  useEffect(() => {
+    dispatch(loadOffer(undefined));
+    dispatch(setCity(actualCity));
+  }, [dispatch, actualCity]);
+
 
   if(cardsCount === 0) {
     return <MainEmpty cities={cities}/>;
@@ -67,6 +78,7 @@ function MainPage({cities}: MainProps): JSX.Element {
                   mapHeight = {'100%'}
                   mapMargin ={'auto'}
                   actualCity = {actualCity}
+                  offerPageMap={false}
                 />
               </section>
             </div>
