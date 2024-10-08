@@ -28,8 +28,6 @@ function App({favoriteOffers, cities}:AppProps) : JSX.Element {
       <Loading />
     );
   }
-
-
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
