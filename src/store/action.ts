@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {OfferType, OfferPage} from '../types/offer-type';
-import {Review, NewComment} from '../types/review-type';
+import {Review} from '../types/review-type';
 import {AuthorizationStatus} from '../store/const';
 import {AppRoute} from '../components/app/const';
 
