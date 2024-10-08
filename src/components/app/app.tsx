@@ -9,7 +9,6 @@ import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
 
 import {OfferType} from '../../types/offer-type';
-import {Review} from '../../types/review-type';
 import Loading from '../../components/loading/loading';
 import {useAppSelector} from '../../hooks/index';
 
@@ -18,11 +17,10 @@ import browserHistory from '../../browser-history';
 
 type AppProps = {
   favoriteOffers: OfferType[];
-  reviews: Review[];
   cities: string[];
 }
 
-function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
+function App({favoriteOffers, cities}:AppProps) : JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
   if (isOffersLoading) {
@@ -30,6 +28,8 @@ function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
       <Loading />
     );
   }
+
+
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -58,7 +58,7 @@ function App({favoriteOffers, reviews, cities}:AppProps) : JSX.Element {
           />
           <Route
             path={`/${AppRoute.Offer}/:id`}
-            element={<Offer reviews={reviews}/>}
+            element={<Offer/>}
           />
           <Route
             path='*'

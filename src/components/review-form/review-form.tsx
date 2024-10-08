@@ -1,19 +1,47 @@
-import {useState, /*FormEvent,*/ ChangeEvent} from 'react';
+import {useState, FormEvent, ChangeEvent, useRef} from 'react';
+import {useParams} from 'react-router-dom';
+
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {postReviewAction} from '../../store/api-actions';
+import {setComment, setRating} from '../../store/action';
 
 function ReviewForm(): JSX.Element {
-  const [, setReview] = useState('');
+  const dispatch = useAppDispatch();
+  const comment = useAppSelector((state) => state.comment);
+  const rating = useAppSelector((state) => state.rating);
+
   const handleReviewChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setReview(evt.target.value);
+    dispatch(setComment(evt.target.value));
   };
 
-  const [, setRating] = useState(0);
+  const formRef = useRef<HTMLFormElement | null>(null);
+
   const handleRatingButtonClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(evt.target.value));
+    dispatch(setRating(Number(evt.target.value)));
   };
+  const params = useParams();
+  const activeOfferId = params.id;
 
+  const [disabled, setDisabled] = useState(false);
+
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (comment !== null && rating !== null && activeOfferId !== undefined && formRef !== null) {
+      setDisabled(true);
+      dispatch(postReviewAction({
+        pageId: activeOfferId,
+        comment: comment,
+        rating: rating,
+        formRef: formRef.current
+      })).then(()=>{
+        setDisabled(false);
+      });
+    }
+  };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form ref={formRef} onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
                 Your review
       </label>
@@ -105,6 +133,7 @@ function ReviewForm(): JSX.Element {
         </label>
       </div>
       <textarea
+        disabled={disabled}
         onChange={handleReviewChange}
         className="reviews__textarea form__textarea"
         id="review"
@@ -120,9 +149,10 @@ function ReviewForm(): JSX.Element {
           <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
+          disabled={disabled}
           className="reviews__submit form__submit button"
           type="submit"
-          disabled
+
         >Submit
         </button>
       </div>
