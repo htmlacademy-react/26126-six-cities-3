@@ -14,6 +14,9 @@ import {useAppSelector} from '../../hooks/index';
 
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import {getAuthorizationStatus, getAuthCheckedStatus} from '../../store/user-authorization/selectors';
+
+import {getOffersLoadingStatus} from '../../store/offers-load/selectors';
 
 type AppProps = {
   favoriteOffers: OfferType[];
@@ -21,9 +24,10 @@ type AppProps = {
 }
 
 function App({favoriteOffers, cities}:AppProps) : JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  if (isOffersLoading) {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersLoading = useAppSelector(getOffersLoadingStatus);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  if (!isAuthChecked || isOffersLoading) {
     return (
       <Loading />
     );

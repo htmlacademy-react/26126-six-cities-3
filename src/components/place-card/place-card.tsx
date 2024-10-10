@@ -1,23 +1,27 @@
 import {Link} from 'react-router-dom';
+import {memo} from 'react';
 
 import {AppRoute} from '../app/const';
 import {OfferType} from '../../types/offer-type';
 import {getStarsStyle} from '../../common';
 import {MouseEvent} from 'react';
 
-import {useAppDispatch} from '../../hooks/index';
-import {hoverOffer} from '../../store/action';
+//import {useAppDispatch} from '../../hooks/index';
+//import {hoverOffer} from '../../store/action';
 
 type PropPlaceCard = {
   offer: OfferType;
+  mouseOver: (event: MouseEvent<HTMLLIElement>)=>void;
+  mouseOut: (event: MouseEvent<HTMLLIElement>)=>void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 function PlaceCard(props: PropPlaceCard): JSX.Element {
-  const {offer} = props;
+  const {offer, mouseOver, mouseOut} = props;
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
 
-  function handleMouseOver(event: MouseEvent<HTMLLIElement>) {
+  /*function handleMouseOver(event: MouseEvent<HTMLLIElement>) {
     event.preventDefault();
     if(event.currentTarget.dataset.id) {
       dispatch(hoverOffer(event.currentTarget.dataset.id));
@@ -25,13 +29,13 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
   }
   function handleMouseOut() {
     dispatch(hoverOffer(''));
-  }
+  }*/
   return (
     <article
       className="cities__card place-card"
       data-id={id}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
+      onMouseOver={mouseOver}
+      onMouseOut={mouseOut}
     >
       {isPremium ?
         <div className="place-card__mark">
@@ -39,7 +43,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
         </div> : null}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Offer}/${id}`}>
+        <Link to={`${AppRoute.Offer}/${id}`} target="_blank">
           <img
             className="place-card__image"
             src={previewImage}
@@ -79,7 +83,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`}>
+          <Link to={`${AppRoute.Offer}/${id}`} target="_blank">
             {title}
           </Link>
         </h2>
@@ -89,4 +93,6 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
   );
 }
 
-export default PlaceCard;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export default memo(PlaceCard);

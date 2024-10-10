@@ -5,6 +5,7 @@ import {sortOffers} from '../../store/action';
 import {useEffect} from 'react';
 import {SORT_TYPES} from '../../common';
 
+import {getSort} from '../../store/app-actions/selectors';
 
 function Sort(): JSX.Element {
 
@@ -29,7 +30,7 @@ function Sort(): JSX.Element {
 
   },[sortTypesList]);
   const dispatch = useAppDispatch();
-  const actualSort = useAppSelector((state) => state.sort);
+  const actualSort = useAppSelector(getSort);
 
   const handleSortSelect = (event: MouseEvent<HTMLLIElement>)=>{
     const value = event.currentTarget.innerText;
