@@ -1,6 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {useEffect/*, useState*/} from 'react';
-//import axios from 'axios';
+import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {AuthorizationStatus} from '../../store/const';
 
@@ -11,20 +10,23 @@ import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 
 import {getStarsStyle} from '../../common';
+import {loadOffer} from '../../store/action';
 import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction} from '../../store/api-actions';
-//import {Review} from '../../types/review-type';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
-//import {OfferPage} from '../../types/offer-type';
-//import {APIRoute} from '../../store/const';
 
+import {getAroundOffers,getDataOffer, getOffers} from '../../store/offers-load/selectors';
+
+import {getCity} from '../../store/app-actions/selectors';
+import {getReviews} from '../../store/reviews-load/selectors';
+import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
 
 function Offer(): JSX.Element|undefined {
-  const offers = useAppSelector((state)=>state.offers);
-  const actualCity = useAppSelector((state)=>state.city);
-  const offer = useAppSelector((state) => state.offer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const aroundOffers = useAppSelector((state) => state.aroundOffers);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const offers = useAppSelector(getOffers);
+  const actualCity = useAppSelector(getCity);
+  const offer = useAppSelector(getDataOffer);
+  const reviews = useAppSelector(getReviews);
+  const aroundOffers = useAppSelector(getAroundOffers);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const params = useParams();
   const activeOfferId = params.id;
@@ -36,23 +38,12 @@ function Offer(): JSX.Element|undefined {
 
   useEffect(() => {
     if(activeOfferId && offer === undefined){
+      dispatch(loadOffer(undefined));
       dispatch(fetchOfferPageAction(activeOfferId));
       dispatch(fetchReviewsAction(activeOfferId));
       dispatch(fetchAroundOffersAction(activeOfferId));
     }
   }, [activeOfferId, dispatch, offer]);
-
-  /*const [offer, setOffer] = useState<OfferPage|undefined>(undefined);
-  useEffect(()=>{
-    const fetchData = async () => {
-      await axios.get<OfferPage|undefined>(`https://15.design.htmlacademy.pro/six-cities${APIRoute.Offers}/${activeOfferId}`)
-        .then((response)=>{
-          setOffer(response.data);
-        });
-
-    };
-    fetchData();
-  });*/
 
   if(offer){
     return (

@@ -1,29 +1,28 @@
 import {useState, FormEvent, ChangeEvent, useRef} from 'react';
 import {useParams} from 'react-router-dom';
 
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppDispatch} from '../../hooks';
 import {postReviewAction} from '../../store/api-actions';
-import {setComment, setRating} from '../../store/action';
+
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
-  const comment = useAppSelector((state) => state.comment);
-  const rating = useAppSelector((state) => state.rating);
-
-  const handleReviewChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(setComment(evt.target.value));
-  };
-
   const formRef = useRef<HTMLFormElement | null>(null);
-
-  const handleRatingButtonClick = (evt: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setRating(Number(evt.target.value)));
-  };
   const params = useParams();
   const activeOfferId = params.id;
 
   const [disabled, setDisabled] = useState(false);
 
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(0);
+
+  const handleReviewChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(evt.target.value);
+  };
+
+  const handleRatingButtonClick = (evt: ChangeEvent<HTMLInputElement>) => {
+    setRating(Number(evt.target.value));
+  };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -34,7 +33,9 @@ function ReviewForm(): JSX.Element {
         comment: comment,
         rating: rating,
         formRef: formRef.current
-      })).then(()=>{
+      })).unwrap().then(()=>{
+        setComment('');
+        setRating(0);
         setDisabled(false);
       });
     }
@@ -48,6 +49,7 @@ function ReviewForm(): JSX.Element {
       <div className="reviews__rating-form form__rating">
         <input
           onChange = {handleRatingButtonClick}
+          disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={5}
@@ -65,6 +67,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           onChange = {handleRatingButtonClick}
+          disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={4}
@@ -82,6 +85,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           onChange = {handleRatingButtonClick}
+          disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={3}
@@ -99,6 +103,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           onChange = {handleRatingButtonClick}
+          disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={2}
@@ -116,6 +121,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           onChange = {handleRatingButtonClick}
+          disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={1}

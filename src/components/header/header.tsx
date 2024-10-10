@@ -5,11 +5,12 @@ import {AuthorizationStatus} from '../../store/const';
 import Logo from '../logo/logo';
 
 import {logoutAction} from '../../store/api-actions';
+import {getAuthorizationStatus, getEmail} from '../../store/user-authorization/selectors';
 
 function Header(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const login = useAppSelector((state) => state.user);
+  const login = useAppSelector(getEmail);
   return(
     <header className="header">
       <div className="container">

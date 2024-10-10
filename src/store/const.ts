@@ -11,4 +11,11 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
+export enum NameSpace {
+  OffersData = 'DATA_OFFERS',
+  ReviewsData = 'DATA_REVIEWS',
+  User = 'USER',
+  AppActions = 'APP_ACTIONS',
+}
+
 export const TIMEOUT_SHOW_ERROR = 2000;

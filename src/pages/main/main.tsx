@@ -10,10 +10,12 @@ import MainEmpty from '../../pages/main-empty/main-empty';
 import Header from '../../components/header/header';
 import Sort from '../../components/sort/sort';
 
-import {loadOffer, setCity} from '../../store/action';
+import {setCity} from '../../store/action';
 import {getOffersByCity, getSortedOffers} from '../main/common';
 import {INITIAL_CITY} from '../../common';
 
+import {getOffers} from '../../store/offers-load/selectors';
+import {getActiveOfferId, getSort} from '../../store/app-actions/selectors';
 
 type MainProps = {
  cities: string[];
@@ -24,8 +26,8 @@ function MainPage({cities}: MainProps): JSX.Element {
   const [searchParams, ] = useSearchParams();
   const searchCityParams = searchParams.get('city') || INITIAL_CITY;
 
-  const offers = useAppSelector((state)=>state.offers);
-  const actualSort = useAppSelector((state) => state.sort);
+  const offers = useAppSelector(getOffers);
+  const actualSort = useAppSelector(getSort);
   const actualCity = searchCityParams;
 
   const filtredOffersByCity = getOffersByCity(actualCity, offers);
@@ -33,14 +35,13 @@ function MainPage({cities}: MainProps): JSX.Element {
 
   const filtredOffers = getSortedOffers(getOffersByCity(actualCity, offers),actualSort);
 
-  const activeOfferId = useAppSelector((state) => state.activeOfferId);
+  const activeOfferId = useAppSelector(getActiveOfferId);
   const selectedOffer = filtredOffers.find((offer) => offer.id === activeOfferId);
 
   const dispatch = useAppDispatch();
 
 
   useEffect(() => {
-    dispatch(loadOffer(undefined));
     dispatch(setCity(actualCity));
   }, [dispatch, actualCity]);
 
