@@ -5,11 +5,7 @@ import CitiesList from '../../components/cities-list/cities-list';
 import {INITIAL_CITY} from '../../common';
 
 
-type MainProps = {
-  cities: string[];
-}
-
-function MainEmpty({cities}: MainProps): JSX.Element {
+function MainEmpty(): JSX.Element {
   const [searchParams, ] = useSearchParams();
   const searchCityParams = searchParams.get('city') || INITIAL_CITY;
   return (
@@ -51,7 +47,7 @@ function MainEmpty({cities}: MainProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList cities={cities}/>
+            <CitiesList/>
           </section>
         </div>
         <div className="cities">

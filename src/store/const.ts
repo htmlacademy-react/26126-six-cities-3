@@ -17,5 +17,3 @@ export enum NameSpace {
   User = 'USER',
   AppActions = 'APP_ACTIONS',
 }
-
-export const TIMEOUT_SHOW_ERROR = 2000;

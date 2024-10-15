@@ -1,7 +1,7 @@
 import {useSearchParams} from 'react-router-dom';
-import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
-import {useAppSelector, useAppDispatch} from '../../hooks/index';
+
+import {useAppSelector} from '../../hooks/index';
 
 import CitiesList from '../../components/cities-list/cities-list';
 import CardsList from '../../components/cards-list/cards-list';
@@ -10,18 +10,13 @@ import MainEmpty from '../../pages/main-empty/main-empty';
 import Header from '../../components/header/header';
 import Sort from '../../components/sort/sort';
 
-import {setCity} from '../../store/action';
 import {getOffersByCity, getSortedOffers} from '../main/common';
 import {INITIAL_CITY} from '../../common';
-
 import {getOffers} from '../../store/offers-load/selectors';
 import {getActiveOfferId, getSort} from '../../store/app-actions/selectors';
 
-type MainProps = {
- cities: string[];
-}
 
-function MainPage({cities}: MainProps): JSX.Element {
+function MainPage(): JSX.Element {
 
   const [searchParams, ] = useSearchParams();
   const searchCityParams = searchParams.get('city') || INITIAL_CITY;
@@ -38,16 +33,9 @@ function MainPage({cities}: MainProps): JSX.Element {
   const activeOfferId = useAppSelector(getActiveOfferId);
   const selectedOffer = filtredOffers.find((offer) => offer.id === activeOfferId);
 
-  const dispatch = useAppDispatch();
-
-
-  useEffect(() => {
-    dispatch(setCity(actualCity));
-  }, [dispatch, actualCity]);
-
 
   if(cardsCount === 0) {
-    return <MainEmpty cities={cities}/>;
+    return <MainEmpty/>;
   }
   return(
     <div className="page page--gray page--main">
@@ -59,7 +47,7 @@ function MainPage({cities}: MainProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList cities={cities}/>
+            <CitiesList/>
           </section>
         </div>
         <div className="cities">
@@ -79,7 +67,7 @@ function MainPage({cities}: MainProps): JSX.Element {
                   mapHeight = {'100%'}
                   mapMargin ={'auto'}
                   actualCity = {actualCity}
-                  offerPageMap={false}
+                  isOfferPageMap={false}
                 />
               </section>
             </div>

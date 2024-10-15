@@ -2,7 +2,9 @@ import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import {City, OfferType} from '../../types/offer-type';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, EMPTY_LOCATION} from '../map/const';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../map/const';
+import {CITY_LOCATIONS} from '../../common';
+
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -11,8 +13,8 @@ type MapProps = {
   mapWidth: string;
   mapHeight: string;
   mapMargin: string;
-  actualCity: string;
-  offerPageMap: boolean;
+  actualCity?: string;
+  isOfferPageMap: boolean;
 };
 
 const defaultCustomIcon = new Icon({
@@ -28,21 +30,19 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {offers, selectedOffer, mapWidth, mapHeight, mapMargin, actualCity, offerPageMap} = props;
+  const {offers, selectedOffer, mapWidth, mapHeight, mapMargin, actualCity, isOfferPageMap} = props;
 
-
-  const offer = offers.find((item)=> item.city.name === actualCity);
-
-
-  const getCityFromOffer = (someOffer:OfferType|undefined):City=> {
-    if(someOffer) {
-      const city = someOffer.city;
-      return city;
+  const getCityCoords = (isOfferPage:boolean):City| undefined=> {
+    let city;
+    if(isOfferPage && selectedOffer) {
+      city = CITY_LOCATIONS.find((cityItem)=> cityItem.name === selectedOffer.city.name);
+    } else {
+      city = CITY_LOCATIONS.find((item)=> item.name === actualCity);
     }
-    return EMPTY_LOCATION;
+    return city;
   };
 
-  const activeCity = getCityFromOffer(offer);
+  const activeCity = getCityCoords(isOfferPageMap);
 
 
   const mapRef = useRef(null);
@@ -57,7 +57,7 @@ function Map(props: MapProps): JSX.Element {
           lng: item.location.longitude
         });
 
-        if(offerPageMap) {
+        if(isOfferPageMap) {
           const selectedMarker = new Marker(
             selectedOffer !== undefined ? {
               lat: selectedOffer.location.latitude,
@@ -73,7 +73,7 @@ function Map(props: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            selectedOffer !== undefined && item.id === selectedOffer.id && !offerPageMap
+            selectedOffer !== undefined && item.id === selectedOffer.id && !isOfferPageMap
               ? currentCustomIcon
               : defaultCustomIcon
           )
@@ -84,7 +84,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers, selectedOffer, offerPageMap]);
+  }, [map, offers, selectedOffer, isOfferPageMap]);
 
   return <div style={{height: mapHeight, width:mapWidth, margin: mapMargin}} ref={mapRef}></div>;
 }

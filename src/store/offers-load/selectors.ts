@@ -9,3 +9,5 @@ export const getOffersLoadingStatus = (state: State): boolean => state[NameSpace
 export const getDataOffer = (state: State): OfferPage|undefined => state[NameSpace.OffersData].offer;
 
 export const getOffers = (state: State): OfferType[]=> state[NameSpace.OffersData].offers;
+
+export const getFavoriteOffers = (state: State): OfferType[] => state[NameSpace.OffersData].favoriteOffers;

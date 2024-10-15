@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 import {MouseEvent} from 'react';
-import {sortOffers} from '../../store/action';
+import {sortOffers} from '../../store/app-actions/app-actions';
 import {useEffect} from 'react';
 import {SORT_TYPES} from '../../common';
 
