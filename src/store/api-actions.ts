@@ -1,31 +1,18 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {AppDispatch, State} from '../types/state.js';
-import {OfferType, OfferPage} from '../types/offer-type.js';
+import {AppDispatch, State, User} from '../types/state.js';
+import {OfferType, OfferPage, FavoriteOffer} from '../types/offer-type.js';
 import {Review, NewComment} from '../types/review-type';
 
 import {AuthData} from '../types/auth-type.js';
 import {UserData} from '../types/user-data-type.js';
 
-import {setError, redirectToRoute} from './action.js';
+import {redirectToRoute} from './action.js';
 
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute,TIMEOUT_SHOW_ERROR} from './const';
+import {APIRoute} from './const';
 import {AppRoute} from '../components/app/const';
-
-
-import {store} from './';
-
-export const clearErrorAction = createAsyncThunk(
-  'offers/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
 
 export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
   dispatch: AppDispatch;
@@ -67,6 +54,31 @@ export const fetchOfferPageAction = createAsyncThunk<OfferPage | undefined, stri
   },
 );
 
+export const fetchFavoriteOffersAction = createAsyncThunk<OfferType[], undefined,{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/favorites',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<OfferType[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const postFavoriteAction = createAsyncThunk<void, FavoriteOffer,{
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offer/favoriteStatus',
+  async ({offerId, favoriteStatus}, {dispatch, extra: api}) => {
+    await api.post<FavoriteOffer>(`${APIRoute.Favorite}/${offerId}/${favoriteStatus}`);
+    dispatch(fetchFavoriteOffersAction());
+    dispatch(fetchOffersAction());
+  },
+);
+
 export const fetchReviewsAction = createAsyncThunk<Review[], string,{
   dispatch: AppDispatch;
   state: State;
@@ -95,15 +107,14 @@ export const postReviewAction = createAsyncThunk<void, NewComment,{
   },
 );
 
-
-export const checkAuthAction = createAsyncThunk<string, undefined, {
+export const checkAuthAction = createAsyncThunk<User, undefined,{
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, {extra: api}) => {
-    const {data} = await api.get<string>(APIRoute.Login);
+    const {data} = await api.get<User>(APIRoute.Login);
     return data;
   },
 );
@@ -116,8 +127,9 @@ export const loginAction = createAsyncThunk<string, AuthData, {
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
     saveToken(token);
+    dispatch(checkAuthAction);
     dispatch(redirectToRoute(AppRoute.Main));
-    return email;
+    return(email);
   },
 );
 

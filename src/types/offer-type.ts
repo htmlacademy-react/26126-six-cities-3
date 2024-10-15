@@ -45,3 +45,7 @@ export type OfferPage = {
     maxAdults: number;
   }
 
+export type FavoriteOffer = {
+  offerId: string;
+  favoriteStatus: number;
+}

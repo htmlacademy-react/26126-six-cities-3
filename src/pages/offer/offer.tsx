@@ -10,19 +10,19 @@ import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 
 import {getStarsStyle} from '../../common';
-import {loadOffer} from '../../store/action';
-import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction} from '../../store/api-actions';
+import {loadOffer} from '../../store/offers-load/offers-load';
+import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction, postFavoriteAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
 import {getAroundOffers,getDataOffer, getOffers} from '../../store/offers-load/selectors';
 
-import {getCity} from '../../store/app-actions/selectors';
+
 import {getReviews} from '../../store/reviews-load/selectors';
 import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
 
 function Offer(): JSX.Element|undefined {
   const offers = useAppSelector(getOffers);
-  const actualCity = useAppSelector(getCity);
+
   const offer = useAppSelector(getDataOffer);
   const reviews = useAppSelector(getReviews);
   const aroundOffers = useAppSelector(getAroundOffers);
@@ -35,6 +35,17 @@ function Offer(): JSX.Element|undefined {
   const firstAroundOffers = aroundOffers.slice(0,3);
 
   const dispatch = useAppDispatch();
+
+  const handleBookmarkButtonClick = () => {
+    if(offer && activeOfferId){
+      dispatch(postFavoriteAction({
+        offerId: activeOfferId,
+        favoriteStatus:!offer.isFavorite ? 1 : 0
+      }));
+      //dispatch(fetchOfferPageAction(activeOfferId));
+      dispatch(loadOffer());
+    }
+  };
 
   useEffect(() => {
     if(activeOfferId && offer === undefined){
@@ -80,7 +91,7 @@ function Offer(): JSX.Element|undefined {
                   <h1 className="offer__name">
                     {offer.title}
                   </h1>
-                  <button className={offer.isFavorite ? 'offer__bookmark-button button offer__bookmark-button--active' : 'offer__bookmark-button button'} type="button">
+                  <button onClick={handleBookmarkButtonClick} className={offer.isFavorite ? 'offer__bookmark-button button offer__bookmark-button--active' : 'offer__bookmark-button button'} type="button">
                     <svg className="offer__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -149,8 +160,7 @@ function Offer(): JSX.Element|undefined {
                 mapWidth = {'1145px'}
                 mapHeight = {'579px'}
                 mapMargin ={'auto'}
-                actualCity= {actualCity}
-                offerPageMap
+                isOfferPageMap
               />
             </section>
           </section>

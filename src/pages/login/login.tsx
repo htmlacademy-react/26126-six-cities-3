@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import {useRef, FormEvent, useState} from 'react';
+import {useRef, FormEvent} from 'react';
 
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AppRoute} from '../../components/app/const';
-
+import {getDisabledStatus} from '../../store/user-authorization/selectors';
 import Logo from '../../components/logo/logo';
 
 function Login(): JSX.Element {
@@ -13,19 +13,15 @@ function Login(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
-  const [disabled, setDisabled] = useState(false);
+  const disabledStatus = useAppSelector(getDisabledStatus);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (loginRef.current !== null && passwordRef.current !== null) {
-      setDisabled(true);
       dispatch(loginAction({
         login: loginRef.current.value,
         password: passwordRef.current.value
-      })).unwrap()
-        .then(()=>{
-          setDisabled(false);
-        });
+      }));
     }
   };
   return (
@@ -69,7 +65,7 @@ function Login(): JSX.Element {
                   required
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit" disabled={disabled}>
+              <button className="login__submit form__submit button" type="submit" disabled={disabledStatus}>
                 Sign in
               </button>
             </form>
@@ -84,8 +80,6 @@ function Login(): JSX.Element {
         </div>
       </main>
     </div>
-
-
   );
 }
 

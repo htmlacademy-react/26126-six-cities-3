@@ -6,14 +6,16 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    //"plugin:import/no-cycle",
     "htmlacademy/react-typescript",
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module', project: 'tsconfig.json' },
   settings: { react: { version: 'detect' } },
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'import'],
   rules: {
     'react-refresh/only-export-components': 'warn',
+    'import/no-cycle': ['error', { 'maxDepth': 10 }],
   },
   overrides: [
     {

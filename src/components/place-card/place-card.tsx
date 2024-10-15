@@ -1,41 +1,66 @@
 import {Link} from 'react-router-dom';
-import {memo} from 'react';
 
 import {AppRoute} from '../app/const';
 import {OfferType} from '../../types/offer-type';
 import {getStarsStyle} from '../../common';
 import {MouseEvent} from 'react';
+import {postFavoriteAction} from '../../store/api-actions';
+import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
-//import {useAppDispatch} from '../../hooks/index';
-//import {hoverOffer} from '../../store/action';
+import {refreshCards} from '../../store/offers-load/offers-load';
+import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
+import {AuthorizationStatus} from '../../store/const';
+import {redirectToRoute} from '../../store/action';
+
+import {hoverOffer} from '../../store/app-actions/app-actions';
 
 type PropPlaceCard = {
   offer: OfferType;
-  mouseOver: (event: MouseEvent<HTMLLIElement>)=>void;
-  mouseOut: (event: MouseEvent<HTMLLIElement>)=>void;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
-function PlaceCard(props: PropPlaceCard): JSX.Element {
-  const {offer, mouseOver, mouseOut} = props;
-  const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
-  //const dispatch = useAppDispatch();
 
-  /*function handleMouseOver(event: MouseEvent<HTMLLIElement>) {
+function PlaceCard(props: PropPlaceCard): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {offer} = props;
+  const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
+
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
+  const handleBookmarkButtonClick = (evt: MouseEvent<HTMLButtonElement>) => {
+    if(authStatus !== AuthorizationStatus.Auth){
+      dispatch(redirectToRoute(AppRoute.Login));
+    }
+
+    const placeCard = evt.currentTarget.closest('article');
+    const dataSetOffer = placeCard ? placeCard.dataset.offer : '';
+    const offerClicked = dataSetOffer ? JSON.parse(dataSetOffer): '';
+
+    if(placeCard && offerClicked){
+      dispatch(postFavoriteAction({
+        offerId: offerClicked.id,
+        favoriteStatus: !offerClicked.isFavorite ? 1 : 0
+      }));
+      dispatch(refreshCards(offerClicked));
+    }
+  };
+
+  function handleMouseOver(event: MouseEvent<HTMLLIElement>) {
     event.preventDefault();
-    if(event.currentTarget.dataset.id) {
-      dispatch(hoverOffer(event.currentTarget.dataset.id));
+    const dataSetOffer = event.currentTarget.dataset.offer;
+    if(dataSetOffer) {
+      dispatch(hoverOffer(JSON.parse(dataSetOffer).id));
     }
   }
   function handleMouseOut() {
     dispatch(hoverOffer(''));
-  }*/
+  }
+
   return (
     <article
       className="cities__card place-card"
-      data-id={id}
-      onMouseOver={mouseOver}
-      onMouseOut={mouseOut}
+      data-offer={JSON.stringify(offer)}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
     >
       {isPremium ?
         <div className="place-card__mark">
@@ -62,6 +87,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
             </span>
           </div>
           <button
+            onClick={handleBookmarkButtonClick}
             className= {isFavorite ?
               'place-card__bookmark-button button place-card__bookmark-button--active' : 'place-card__bookmark-button button'}
             type="button"
@@ -83,7 +109,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`} target="_blank">
+          <Link to={`${AppRoute.Offer}/${id}`}>
             {title}
           </Link>
         </h2>
@@ -94,5 +120,4 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
 }
 
 
-// eslint-disable-next-line react-refresh/only-export-components
-export default memo(PlaceCard);
+export default PlaceCard;

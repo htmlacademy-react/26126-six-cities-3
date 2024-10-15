@@ -1,14 +1,10 @@
 import {Link, useSearchParams } from 'react-router-dom';
+
 import {AppRoute} from '../../components/app/const';
-import {INITIAL_CITY} from '../../common';
+import {INITIAL_CITY, CITY_LOCATIONS} from '../../common';
 
-type CitiesListProp = {
-  cities: string[];
-}
+function CitiesList(): JSX.Element {
 
-
-function CitiesList(props: CitiesListProp): JSX.Element {
-  const {cities} = props;
 
   const [searchParams] = useSearchParams();
   const searchCityParams = searchParams.get('city') || INITIAL_CITY;
@@ -17,15 +13,14 @@ function CitiesList(props: CitiesListProp): JSX.Element {
   return(
     <ul className="locations__list tabs__list">
       {
-        cities.map((item)=>(
+        CITY_LOCATIONS.map((item)=>(
           <li
-            key={item} className="locations__item"
+            key={item.name} className="locations__item"
           >
             <Link
-              /*onClick={handleCitySelect}*/
-              className={ item === searchCityParams ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'} to={`${AppRoute.Main}?city=${item}`}
+              className={ item.name === searchCityParams ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'} to={`${AppRoute.Main}?city=${item.name}`}
             >
-              <span>{item}</span>
+              <span>{item.name}</span>
             </Link>
           </li>
         ))

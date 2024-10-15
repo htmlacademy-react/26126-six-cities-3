@@ -1,8 +1,9 @@
 import {useState, FormEvent, ChangeEvent, useRef} from 'react';
 import {useParams} from 'react-router-dom';
 
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postReviewAction} from '../../store/api-actions';
+import {getDisabledReviewStatus} from '../../store/reviews-load/selectors';
 
 
 function ReviewForm(): JSX.Element {
@@ -11,7 +12,7 @@ function ReviewForm(): JSX.Element {
   const params = useParams();
   const activeOfferId = params.id;
 
-  const [disabled, setDisabled] = useState(false);
+  const disabled = useAppSelector(getDisabledReviewStatus);
 
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
@@ -27,7 +28,6 @@ function ReviewForm(): JSX.Element {
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (comment !== null && rating !== null && activeOfferId !== undefined && formRef !== null) {
-      setDisabled(true);
       dispatch(postReviewAction({
         pageId: activeOfferId,
         comment: comment,
@@ -36,7 +36,6 @@ function ReviewForm(): JSX.Element {
       })).unwrap().then(()=>{
         setComment('');
         setRating(0);
-        setDisabled(false);
       });
     }
   };
