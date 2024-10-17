@@ -9,7 +9,7 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {fetchOffersAction, checkAuthAction, fetchFavoriteOffersAction} from './store/api-actions';
 
-store.dispatch(fetchOffersAction());
+store.dispatch(fetchOffersAction(false));
 store.dispatch(checkAuthAction());
 store.dispatch(fetchFavoriteOffersAction());
 
