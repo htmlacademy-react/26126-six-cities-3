@@ -8,18 +8,33 @@ const initialState: OffersLoad = {
   isOffersLoading: false,
   offer: undefined,
   aroundOffers: [],
-  favoriteOffers: []
+  favoriteOffers: [],
+  isOfferLoading: false,
+  isFavoriteLoading: false,
+  favoriteStatus: false
 };
 
 export const offersLoad = createSlice({
   name: NameSpace.OffersData,
   initialState,
   reducers: {
-    loadOffer:(state, action: PayloadAction<OffersLoad['offer']>) => {
-      state.offer = action.payload;
+    loadOffer:(state, action: PayloadAction<OffersLoad['favoriteStatus']>) => {
+      if(state.offer){
+        state.offer.isFavorite = action.payload;
+      }
     },
     refreshCards:(state, action: PayloadAction<OffersLoad['offer']>)=>{
-      state.offers.map((item)=>{
+      state.offers.forEach((item)=>{
+        if(action.payload && item.id === action.payload.id){
+          item.isFavorite = !action.payload.isFavorite;
+        }
+      });
+    },
+    loading:(state, action: PayloadAction<boolean>)=>{
+      state.isOffersLoading = !action.payload;
+    },
+    refreshFavoriteCards:(state, action: PayloadAction<OffersLoad['offer']>)=>{
+      state.favoriteOffers.forEach((item)=>{
         if(action.payload && item.id === action.payload.id){
           item.isFavorite = !action.payload.isFavorite;
         }
@@ -28,9 +43,6 @@ export const offersLoad = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchOffersAction.pending, (state) => {
-        state.isOffersLoading = true;
-      })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.isOffersLoading = false;
         state.offers = action.payload;
@@ -39,26 +51,26 @@ export const offersLoad = createSlice({
         state.aroundOffers = action.payload;
       })
       .addCase(fetchOfferPageAction.pending, (state) => {
-        state.isOffersLoading = true;
+        state.isOfferLoading = true;
       })
       .addCase(fetchOfferPageAction.fulfilled, (state, action) => {
-        state.isOffersLoading = false;
+        state.isOfferLoading = false;
         state.offer = action.payload;
       })
       .addCase(fetchOfferPageAction.rejected, (state) => {
-        state.isOffersLoading = false;
+        state.isOfferLoading = false;
       })
-      /*.addCase(fetchFavoriteOffersAction.pending, (state) => {
-        state.isOffersLoading = true;
-      })*/
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.isFavoriteLoading = true;
+      })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
-        state.isOffersLoading = false;
+        state.isFavoriteLoading = false;
         state.favoriteOffers = action.payload;
       })
       .addCase(fetchFavoriteOffersAction.rejected, (state) => {
-        state.isOffersLoading = false;
+        state.isFavoriteLoading = false;
       });
   }
 });
 
-export const {loadOffer, refreshCards} = offersLoad.actions;
+export const {loadOffer, refreshCards, loading, refreshFavoriteCards} = offersLoad.actions;

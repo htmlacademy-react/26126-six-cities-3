@@ -49,10 +49,19 @@ export const CITY_LOCATIONS = [
     }}
 ];
 
+export const CITY_NAMES = CITY_LOCATIONS.map((item)=>item.name);
+
 export enum SortTypes {
   POPULAR='Popular',
   PRICE_FROM_LOW='Price: low to high',
   PRICE_FROM_HIGH='Price: high to low',
   RATING='Top rated first'
+}
+
+//MDN
+export function getRandomIntInclusive(min:number, max: number) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
 }
 export const SORT_TYPES = Object.values(SortTypes);

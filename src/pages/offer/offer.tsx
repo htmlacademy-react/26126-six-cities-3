@@ -8,17 +8,18 @@ import Map from '../../components/map/map';
 import CardsList from '../../components/cards-list/cards-list';
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
+import Loading from '../../components/loading/loading';
 
 import {getStarsStyle} from '../../common';
 import {loadOffer} from '../../store/offers-load/offers-load';
-import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction, postFavoriteAction} from '../../store/api-actions';
+import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction, postFavoriteAction, fetchOffersAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
 import {getAroundOffers,getDataOffer, getOffers} from '../../store/offers-load/selectors';
 
-
 import {getReviews} from '../../store/reviews-load/selectors';
 import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
+import {getOfferPageLoadingStatus} from '../../store/offers-load/selectors';
 
 function Offer(): JSX.Element|undefined {
   const offers = useAppSelector(getOffers);
@@ -27,6 +28,7 @@ function Offer(): JSX.Element|undefined {
   const reviews = useAppSelector(getReviews);
   const aroundOffers = useAppSelector(getAroundOffers);
   const authStatus = useAppSelector(getAuthorizationStatus);
+  const isOfferLoading = useAppSelector(getOfferPageLoadingStatus);
 
   const params = useParams();
   const activeOfferId = params.id;
@@ -41,22 +43,27 @@ function Offer(): JSX.Element|undefined {
       dispatch(postFavoriteAction({
         offerId: activeOfferId,
         favoriteStatus:!offer.isFavorite ? 1 : 0
-      }));
-      //dispatch(fetchOfferPageAction(activeOfferId));
-      dispatch(loadOffer());
+      })).unwrap().then(()=>{
+        dispatch(fetchOffersAction(true));
+        dispatch(loadOffer(!offer.isFavorite));
+      });
     }
   };
 
   useEffect(() => {
-    if(activeOfferId && offer === undefined){
-      dispatch(loadOffer(undefined));
+    if(activeOfferId){
       dispatch(fetchOfferPageAction(activeOfferId));
       dispatch(fetchReviewsAction(activeOfferId));
       dispatch(fetchAroundOffersAction(activeOfferId));
     }
-  }, [activeOfferId, dispatch, offer]);
+  }, [activeOfferId]);
 
   if(offer){
+    if (isOfferLoading) {
+      return (
+        <Loading />
+      );
+    }
     return (
       <div className="page">
         <Helmet>
