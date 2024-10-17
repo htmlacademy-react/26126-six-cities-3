@@ -12,6 +12,8 @@ export const getFavoriteLoadingStatus = (state: State): boolean => state[NameSpa
 
 export const getDataOffer = (state: State): OfferPage|undefined => state[NameSpace.OffersData].offer;
 
+export const getDataCard = (state: State): OfferType|undefined => state[NameSpace.OffersData].offerCard;
+
 export const getOffers = (state: State): OfferType[]=> state[NameSpace.OffersData].offers;
 
 export const getFavoriteOffers = (state: State): OfferType[] => state[NameSpace.OffersData].favoriteOffers;

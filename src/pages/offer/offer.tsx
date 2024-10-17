@@ -2,6 +2,7 @@ import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {AuthorizationStatus} from '../../store/const';
+import {AppRoute} from '../../components/app/const';
 
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
@@ -13,6 +14,7 @@ import Loading from '../../components/loading/loading';
 import {getStarsStyle} from '../../common';
 import {loadOffer} from '../../store/offers-load/offers-load';
 import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction, postFavoriteAction, fetchOffersAction} from '../../store/api-actions';
+import {redirectToRoute} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
 import {getAroundOffers,getDataOffer, getOffers} from '../../store/offers-load/selectors';
@@ -39,14 +41,18 @@ function Offer(): JSX.Element|undefined {
   const dispatch = useAppDispatch();
 
   const handleBookmarkButtonClick = () => {
-    if(offer && activeOfferId){
-      dispatch(postFavoriteAction({
-        offerId: activeOfferId,
-        favoriteStatus:!offer.isFavorite ? 1 : 0
-      })).unwrap().then(()=>{
-        dispatch(fetchOffersAction(true));
-        dispatch(loadOffer(!offer.isFavorite));
-      });
+    if(authStatus !== AuthorizationStatus.Auth){
+      dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      if(offer && activeOfferId){
+        dispatch(postFavoriteAction({
+          offerId: activeOfferId,
+          favoriteStatus:!offer.isFavorite ? 1 : 0
+        })).unwrap().then(()=>{
+          dispatch(fetchOffersAction(true));
+          dispatch(loadOffer(!offer.isFavorite));
+        });
+      }
     }
   };
 

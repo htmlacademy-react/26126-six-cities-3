@@ -7,6 +7,7 @@ const initialState: OffersLoad = {
   offers: [],
   isOffersLoading: false,
   offer: undefined,
+  offerCard: undefined,
   aroundOffers: [],
   favoriteOffers: [],
   isOfferLoading: false,
@@ -23,7 +24,7 @@ export const offersLoad = createSlice({
         state.offer.isFavorite = action.payload;
       }
     },
-    refreshCards:(state, action: PayloadAction<OffersLoad['offer']>)=>{
+    refreshCards:(state, action: PayloadAction<OffersLoad['offerCard']>)=>{
       state.offers.forEach((item)=>{
         if(action.payload && item.id === action.payload.id){
           item.isFavorite = !action.payload.isFavorite;
@@ -33,7 +34,7 @@ export const offersLoad = createSlice({
     loading:(state, action: PayloadAction<boolean>)=>{
       state.isOffersLoading = !action.payload;
     },
-    refreshFavoriteCards:(state, action: PayloadAction<OffersLoad['offer']>)=>{
+    refreshFavoriteCards:(state, action: PayloadAction<OffersLoad['offerCard']>)=>{
       state.favoriteOffers.forEach((item)=>{
         if(action.payload && item.id === action.payload.id){
           item.isFavorite = !action.payload.isFavorite;

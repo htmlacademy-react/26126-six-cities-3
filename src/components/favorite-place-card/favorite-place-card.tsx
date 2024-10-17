@@ -5,12 +5,8 @@ import {OfferType} from '../../types/offer-type';
 
 import {postFavoriteAction, fetchOffersAction} from '../../store/api-actions';
 import {refreshFavoriteCards} from '../../store/offers-load/offers-load';
-import {useAppDispatch, useAppSelector} from '../../hooks/index';
+import {useAppDispatch} from '../../hooks/index';
 
-import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
-import {AuthorizationStatus} from '../../store/const';
-import {AppRoute} from '../app/const';
-import {redirectToRoute} from '../../store/action';
 
 type PropPlaceCard = {
   offer: OfferType;
@@ -20,12 +16,8 @@ function FavoritePlaceCard(props: PropPlaceCard): JSX.Element{
   const {offer} = props;
   const dispatch = useAppDispatch();
 
-  const authStatus = useAppSelector(getAuthorizationStatus);
-
   const handleBookmarkButtonClick = () => {
-    if(authStatus !== AuthorizationStatus.Auth){
-      dispatch(redirectToRoute(AppRoute.Login));
-    }
+
     dispatch(postFavoriteAction({
       offerId: offer.id,
       favoriteStatus: !offer.isFavorite ? 1 : 0
