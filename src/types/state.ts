@@ -25,9 +25,13 @@ export type UserAuth = {
 export type OffersLoad = {
   offers: OfferType[];
   isOffersLoading: boolean;
+  offerCard: OfferType | undefined;
   offer: OfferPage | undefined;
   aroundOffers: OfferType[];
   favoriteOffers: OfferType[];
+  isOfferLoading: boolean;
+  isFavoriteLoading: boolean;
+  favoriteStatus: boolean;
 }
 
 export type ReviewsLoad = {

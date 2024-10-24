@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../app/const';
 import {OfferType} from '../../types/offer-type';
 import {getStarsStyle} from '../../common';
-import {MouseEvent} from 'react';
 import {postFavoriteAction} from '../../store/api-actions';
+import {refreshCards} from '../../store/offers-load/offers-load';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
-import {refreshCards} from '../../store/offers-load/offers-load';
+
 import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
 import {AuthorizationStatus} from '../../store/const';
 import {redirectToRoute} from '../../store/action';
@@ -26,30 +26,22 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
 
   const authStatus = useAppSelector(getAuthorizationStatus);
 
-  const handleBookmarkButtonClick = (evt: MouseEvent<HTMLButtonElement>) => {
+  const handleBookmarkButtonClick = () => {
     if(authStatus !== AuthorizationStatus.Auth){
       dispatch(redirectToRoute(AppRoute.Login));
-    }
-
-    const placeCard = evt.currentTarget.closest('article');
-    const dataSetOffer = placeCard ? placeCard.dataset.offer : '';
-    const offerClicked = dataSetOffer ? JSON.parse(dataSetOffer): '';
-
-    if(placeCard && offerClicked){
-      dispatch(postFavoriteAction({
-        offerId: offerClicked.id,
-        favoriteStatus: !offerClicked.isFavorite ? 1 : 0
-      }));
-      dispatch(refreshCards(offerClicked));
+    } else {
+      if(offer){
+        dispatch(postFavoriteAction({
+          offerId: offer.id,
+          favoriteStatus: !offer.isFavorite ? 1 : 0
+        }));
+        dispatch(refreshCards(offer));
+      }
     }
   };
 
-  function handleMouseOver(event: MouseEvent<HTMLLIElement>) {
-    event.preventDefault();
-    const dataSetOffer = event.currentTarget.dataset.offer;
-    if(dataSetOffer) {
-      dispatch(hoverOffer(JSON.parse(dataSetOffer).id));
-    }
+  function handleMouseOver() {
+    dispatch(hoverOffer(offer.id));
   }
   function handleMouseOut() {
     dispatch(hoverOffer(''));
@@ -57,8 +49,8 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
 
   return (
     <article
+      data-testid ="placeCard"
       className="cities__card place-card"
-      data-offer={JSON.stringify(offer)}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
@@ -68,7 +60,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
         </div> : null}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Offer}/${id}`} target="_blank">
+        <Link to={`${AppRoute.Offer}/${id}`} >
           <img
             className="place-card__image"
             src={previewImage}

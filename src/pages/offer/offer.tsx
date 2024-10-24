@@ -2,23 +2,26 @@ import {useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {Helmet} from 'react-helmet-async';
 import {AuthorizationStatus} from '../../store/const';
+import {AppRoute} from '../../components/app/const';
 
 import ReviewList from '../../components/review-list/review-list';
 import Map from '../../components/map/map';
 import CardsList from '../../components/cards-list/cards-list';
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
+import Loading from '../../components/loading/loading';
 
 import {getStarsStyle} from '../../common';
 import {loadOffer} from '../../store/offers-load/offers-load';
-import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction, postFavoriteAction} from '../../store/api-actions';
+import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction, postFavoriteAction, fetchOffersAction} from '../../store/api-actions';
+import {redirectToRoute} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
 import {getAroundOffers,getDataOffer, getOffers} from '../../store/offers-load/selectors';
 
-
 import {getReviews} from '../../store/reviews-load/selectors';
 import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
+import {getOfferPageLoadingStatus} from '../../store/offers-load/selectors';
 
 function Offer(): JSX.Element|undefined {
   const offers = useAppSelector(getOffers);
@@ -27,6 +30,7 @@ function Offer(): JSX.Element|undefined {
   const reviews = useAppSelector(getReviews);
   const aroundOffers = useAppSelector(getAroundOffers);
   const authStatus = useAppSelector(getAuthorizationStatus);
+  const isOfferLoading = useAppSelector(getOfferPageLoadingStatus);
 
   const params = useParams();
   const activeOfferId = params.id;
@@ -37,28 +41,37 @@ function Offer(): JSX.Element|undefined {
   const dispatch = useAppDispatch();
 
   const handleBookmarkButtonClick = () => {
-    if(offer && activeOfferId){
-      dispatch(postFavoriteAction({
-        offerId: activeOfferId,
-        favoriteStatus:!offer.isFavorite ? 1 : 0
-      }));
-      //dispatch(fetchOfferPageAction(activeOfferId));
-      dispatch(loadOffer());
+    if(authStatus !== AuthorizationStatus.Auth){
+      dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      if(offer && activeOfferId){
+        dispatch(postFavoriteAction({
+          offerId: activeOfferId,
+          favoriteStatus:!offer.isFavorite ? 1 : 0
+        })).unwrap().then(()=>{
+          dispatch(fetchOffersAction(true));
+          dispatch(loadOffer(!offer.isFavorite));
+        });
+      }
     }
   };
 
   useEffect(() => {
-    if(activeOfferId && offer === undefined){
-      dispatch(loadOffer(undefined));
+    if(activeOfferId){
       dispatch(fetchOfferPageAction(activeOfferId));
       dispatch(fetchReviewsAction(activeOfferId));
       dispatch(fetchAroundOffersAction(activeOfferId));
     }
-  }, [activeOfferId, dispatch, offer]);
+  }, [activeOfferId]);
 
   if(offer){
+    if (isOfferLoading) {
+      return (
+        <Loading />
+      );
+    }
     return (
-      <div className="page">
+      <div className="page" data-testid="offer-page">
         <Helmet>
           <title>6 cities: offer</title>
         </Helmet>

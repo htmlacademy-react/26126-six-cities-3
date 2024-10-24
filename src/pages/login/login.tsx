@@ -6,9 +6,13 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AppRoute} from '../../components/app/const';
 import {getDisabledStatus} from '../../store/user-authorization/selectors';
+import {CITY_NAMES, getRandomIntInclusive} from '../../common';
 import Logo from '../../components/logo/logo';
 
 function Login(): JSX.Element {
+  const randomIndex = getRandomIntInclusive(0, CITY_NAMES.length - 1);
+  const randomCity = CITY_NAMES[randomIndex];
+
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
@@ -72,8 +76,8 @@ function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>Paris</span>
+              <Link className="locations__item-link" to={`${AppRoute.Main}?city=${randomCity}`}>
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>

@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../const';
 import {AppActions} from '../../types/state';
-const INITIAL_SORT = 'Popular';
+export const INITIAL_SORT = 'Popular';
 
 const initialState: AppActions = {
   sort: INITIAL_SORT,

@@ -11,8 +11,8 @@ import NotFound from '../not-found/not-found';
 import Loading from '../../components/loading/loading';
 import {useAppSelector} from '../../hooks/index';
 
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
+//import HistoryRouter from '../history-route/history-route';
+//import browserHistory from '../../browser-history';
 import {getAuthorizationStatus, getAuthCheckedStatus} from '../../store/user-authorization/selectors';
 
 import {getOffersLoadingStatus} from '../../store/offers-load/selectors';
@@ -29,38 +29,36 @@ function App() : JSX.Element {
   }
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <Routes>
-          <Route
-            path={'/'}
-            element={
-              <MainPage/>
-            }
-          />
-          <Route
-            path={AppRoute.Login}
-            element={<Login/>}
-          />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                status={authorizationStatus}
-              >
-                <Favorite/>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={`/${AppRoute.Offer}/:id`}
-            element={<Offer/>}
-          />
-          <Route
-            path='*'
-            element={<NotFound/>}
-          />
-        </Routes>
-      </HistoryRouter>
+      <Routes>
+        <Route
+          path={'/'}
+          element={
+            <MainPage/>
+          }
+        />
+        <Route
+          path={AppRoute.Login}
+          element={<Login/>}
+        />
+        <Route
+          path={AppRoute.Favorites}
+          element={
+            <PrivateRoute
+              status={authorizationStatus}
+            >
+              <Favorite/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={`/${AppRoute.Offer}/:id`}
+          element={<Offer/>}
+        />
+        <Route
+          path='*'
+          element={<NotFound/>}
+        />
+      </Routes>
     </HelmetProvider>
   );
 }
