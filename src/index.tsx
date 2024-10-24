@@ -7,11 +7,11 @@ import App from '../src/components/app/app';
 import {store} from './store/index';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {fetchOffersAction, checkAuthAction, fetchFavoriteOffersAction} from './store/api-actions';
+import {fetchOffersAction, checkAuthAction} from './store/api-actions';
 
 store.dispatch(fetchOffersAction(false));
 store.dispatch(checkAuthAction());
-store.dispatch(fetchFavoriteOffersAction());
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

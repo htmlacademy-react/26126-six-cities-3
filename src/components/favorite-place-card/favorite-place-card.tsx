@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 
 import {OfferType} from '../../types/offer-type';
-
+import {AppRoute} from '../app/const';
 
 import {postFavoriteAction, fetchOffersAction} from '../../store/api-actions';
 import {refreshFavoriteCards} from '../../store/offers-load/offers-load';
@@ -27,7 +27,9 @@ function FavoritePlaceCard(props: PropPlaceCard): JSX.Element{
     });
   };
   return(
-    <article key={offer.id}
+    <article
+      data-testid="favorite-card"
+      key={offer.id}
       className="favorites__card place-card"
     >
       {offer.isPremium ?
@@ -35,7 +37,7 @@ function FavoritePlaceCard(props: PropPlaceCard): JSX.Element{
           <span>Premium</span>
         </div> : ''}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to="#">
+        <Link to={`${AppRoute.Offer}/${offer.id}`}>
           <img
             className="place-card__image"
             src={offer.previewImage}

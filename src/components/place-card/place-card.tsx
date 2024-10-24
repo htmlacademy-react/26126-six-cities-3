@@ -49,6 +49,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
 
   return (
     <article
+      data-testid ="placeCard"
       className="cities__card place-card"
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}

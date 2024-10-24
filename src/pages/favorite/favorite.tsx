@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-//import {useEffect} from 'react';
+import {useEffect} from 'react';
 
-import {/*useAppDispatch,*/useAppSelector} from '../../hooks/index';
+import {useAppDispatch,useAppSelector} from '../../hooks/index';
 import {getFavoriteOffers, getFavoriteLoadingStatus} from '../../store/offers-load/selectors';
 
-//import {fetchFavoriteOffersAction} from '../../store/api-actions';
+import {fetchFavoriteOffersAction} from '../../store/api-actions';
 
 import Loading from '../../components/loading/loading';
 import FavoriteEmpty from '../favorite-empty/favorite-empty';
@@ -21,11 +21,11 @@ function Favorite(): JSX.Element {
     allFavoriteCities.push(item.city.name);
   });
   const favoriteCities = [... new Set(allFavoriteCities)];
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  /*useEffect(() => {
+  useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
-  }, []);*/
+  }, []);
 
   if (isFavoriteLoading) {
     return (
@@ -38,7 +38,7 @@ function Favorite(): JSX.Element {
     );
   }
   return (
-    <div className="page">
+    <div className="page" data-testid="favorite-page">
       <Helmet>
         <title>6 cities: favorites</title>
       </Helmet>

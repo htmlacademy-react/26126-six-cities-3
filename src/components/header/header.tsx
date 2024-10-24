@@ -7,7 +7,7 @@ import Logo from '../logo/logo';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser, getAuthCheckedStatus, getEmail} from '../../store/user-authorization/selectors';
 
-import {getFavoriteOffers} from '../../store/offers-load/selectors';
+import {getOffers} from '../../store/offers-load/selectors';
 
 function Header(): JSX.Element {
 
@@ -16,7 +16,14 @@ function Header(): JSX.Element {
   const login = useAppSelector(getUser);
   const email = useAppSelector(getEmail);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const offers = useAppSelector(getOffers);
+
+  const favoriteOffers = [];
+  offers.map((item)=>{
+    if(item.isFavorite === true) {
+      favoriteOffers.push(item);
+    }
+  });
 
   return(
     <header className="header">

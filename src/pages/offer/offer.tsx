@@ -71,7 +71,7 @@ function Offer(): JSX.Element|undefined {
       );
     }
     return (
-      <div className="page">
+      <div className="page" data-testid="offer-page">
         <Helmet>
           <title>6 cities: offer</title>
         </Helmet>

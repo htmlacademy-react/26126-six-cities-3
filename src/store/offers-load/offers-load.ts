@@ -48,6 +48,9 @@ export const offersLoad = createSlice({
         state.isOffersLoading = false;
         state.offers = action.payload;
       })
+      .addCase(fetchOffersAction.rejected, (state) => {
+        state.isOffersLoading = false;
+      })
       .addCase(fetchAroundOffersAction.fulfilled, (state, action) => {
         state.aroundOffers = action.payload;
       })
