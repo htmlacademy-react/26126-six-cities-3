@@ -7,7 +7,7 @@ import Logo from '../logo/logo';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser, getAuthCheckedStatus, getEmail} from '../../store/user-authorization/selectors';
 
-import {getOffers} from '../../store/offers-load/selectors';
+import {getFavoriteCardsFromOffersList} from '../../store/offers-load/selectors';
 
 function Header(): JSX.Element {
 
@@ -16,14 +16,7 @@ function Header(): JSX.Element {
   const login = useAppSelector(getUser);
   const email = useAppSelector(getEmail);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-  const offers = useAppSelector(getOffers);
-
-  const favoriteOffers = [];
-  offers.map((item)=>{
-    if(item.isFavorite === true) {
-      favoriteOffers.push(item);
-    }
-  });
+  const favoriteOffers = useAppSelector(getFavoriteCardsFromOffersList);
 
   return(
     <header className="header">
@@ -57,6 +50,7 @@ function Header(): JSX.Element {
                       dispatch(logoutAction());
                     }}
                     className="header__nav-link" to={AppRoute.Main}
+                    data-testid= "logout-link"
                   >
                     <span className="header__signout">Sign out</span>
                   </Link>

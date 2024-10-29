@@ -17,6 +17,7 @@ function ReviewItem(props: ReviewProps): JSX.Element {
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
+            data-testid="avatar"
             className="reviews__avatar user__avatar"
             src={review.user.avatarUrl}
             width={54}

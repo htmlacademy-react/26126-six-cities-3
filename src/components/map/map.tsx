@@ -20,13 +20,13 @@ type MapProps = {
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconAnchor: [20, 40],
 });
 
 function Map(props: MapProps): JSX.Element {
@@ -55,7 +55,7 @@ function Map(props: MapProps): JSX.Element {
         const marker = new Marker({
           lat: item.location.latitude,
           lng: item.location.longitude
-        });
+        },{ alt: 'pin-image'});
 
         if(isOfferPageMap) {
           const selectedMarker = new Marker(
@@ -86,7 +86,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, offers, selectedOffer, isOfferPageMap]);
 
-  return <div style={{height: mapHeight, width:mapWidth, margin: mapMargin}} ref={mapRef}></div>;
+  return <div data-testid= "map-id" style={{height: mapHeight, width:mapWidth, margin: mapMargin}} ref={mapRef}></div>;
 }
 
 export default Map;

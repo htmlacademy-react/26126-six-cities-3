@@ -6,10 +6,14 @@ describe('Component: NotFoundScreen', () => {
   it('should render correctly', () => {
     const expectedHeaderText = 'Page is not Found';
     const expectedLinkText = 'На главную';
+    const linkTestId = 'main-link';
+
 
     render(withHistory(<NotFound />));
+    const mainLink = screen.getByTestId(linkTestId);
 
+    expect(screen.getAllByRole('link'));
+    expect(mainLink).toHaveTextContent(expectedLinkText);
     expect(screen.getByText(expectedHeaderText)).toBeInTheDocument();
-    expect(screen.getByText(expectedLinkText)).toBeInTheDocument();
   });
 });

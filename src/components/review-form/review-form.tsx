@@ -41,12 +41,13 @@ function ReviewForm(): JSX.Element {
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
+    <form data-testid="form-review" ref={formRef} onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">
                 Your review
       </label>
       <div className="reviews__rating-form form__rating">
         <input
+          data-testid ="input-star"
           onChange = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
@@ -65,6 +66,7 @@ function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
+          data-testid ="input-star"
           onChange = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
@@ -83,6 +85,7 @@ function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
+          data-testid ="input-star"
           onChange = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
@@ -101,6 +104,7 @@ function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
+          data-testid ="input-star"
           onChange = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
@@ -119,6 +123,7 @@ function ReviewForm(): JSX.Element {
           </svg>
         </label>
         <input
+          data-testid ="input-star"
           onChange = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
@@ -138,6 +143,7 @@ function ReviewForm(): JSX.Element {
         </label>
       </div>
       <textarea
+        data-testid = "comment-text"
         disabled={disabled}
         onChange={handleReviewChange}
         className="reviews__textarea form__textarea"

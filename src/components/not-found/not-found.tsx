@@ -26,7 +26,7 @@ function NotFound():JSX.Element {
                 <p className="cities__status-description">
                   Page is not Found
                 </p>
-                <Link to="/">На главную</Link>
+                <Link data-testid="main-link" to="/">На главную</Link>
               </div>
             </section>
             <div className="cities__right-section" />
