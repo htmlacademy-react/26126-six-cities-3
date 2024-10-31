@@ -27,13 +27,15 @@ function ReviewForm(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (comment !== null && rating !== null && activeOfferId !== undefined && formRef !== null) {
+    if (comment !== null && rating !== null) {
       dispatch(postReviewAction({
-        pageId: activeOfferId,
+        pageId: activeOfferId ? activeOfferId : '',
         comment: comment,
         rating: rating,
-        formRef: formRef.current
       })).unwrap().then(()=>{
+        if(formRef.current){
+          formRef.current.reset();
+        }
         setComment('');
         setRating(0);
       });

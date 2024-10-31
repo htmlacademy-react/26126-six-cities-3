@@ -20,7 +20,7 @@ export const makeFakeUser = (): User => ({
 } as User);
 
 export const makeFakeOfferCard = ():OfferType =>({
-  id: database.column(),
+  id: datatype.string(),
   title:  name.title(),
   type: name.title(),
   price: datatype.number(),
@@ -44,7 +44,7 @@ export const makeFakeOfferCard = ():OfferType =>({
 });
 
 export const makeFakeOfferPage = ():OfferPage =>({
-  id: database.column(),
+  id: datatype.string(),
   title:  name.title(),
   type: name.title(),
   price: datatype.number(),

@@ -246,7 +246,6 @@ describe('Async actions', () => {
         pageId: 'ghghytyty',
         comment: 'should dispatch "postReviewAction.pending",',
         rating: 5,
-        formRef: null
       };
       const fakeServerReplay = { token: 'secret' };
 

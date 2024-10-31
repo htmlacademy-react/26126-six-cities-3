@@ -6,7 +6,8 @@ import {makeFakeStore, makeFakeOfferCard} from '../../utils/moks';
 import {APIRoute} from '../../store/const';
 import { extractActionsTypes } from '../../utils/moks';
 import {AuthorizationStatus} from '../../store/const';
-import {postFavoriteAction/*, fetchFavoriteOffersAction*/} from '../../store/api-actions';
+import {postFavoriteAction, fetchFavoriteOffersAction, fetchOffersAction} from '../../store/api-actions';
+import {refreshFavoriteCards, loading} from '../../store/offers-load/offers-load';
 
 describe('Component: FavoritePlaceCard', () => {
   it('should render correct', () => {
@@ -31,8 +32,8 @@ describe('Component: FavoritePlaceCard', () => {
   });
 
   it('should dispatch postFavoriteAction', async () => {
-
     const fakeOffer = makeFakeOfferCard();
+    const fakeServerReplay = { token: 'secret' };
 
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(<FavoritePlaceCard offer={fakeOffer}/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
@@ -40,18 +41,27 @@ describe('Component: FavoritePlaceCard', () => {
       isLoginFormDasabled: false,
       email: ''
     }}));
-    mockAxiosAdapter.onPost(`${APIRoute.Favorite}/${fakeOffer.id}/${fakeOffer.isFavorite ? 1 : 0}`).reply(200, []);
+
+    mockAxiosAdapter.onPost(`${APIRoute.Favorite}/${fakeOffer.id}/${!fakeOffer.isFavorite ? 1 : 0}`).reply(200, fakeServerReplay);
+    mockAxiosAdapter.onGet(APIRoute.Favorite).reply(200, []);
+    mockAxiosAdapter.onGet(APIRoute.Offers).reply(200, []);
 
     const preparedComponent = withHistory(withStoreComponent);
     render(preparedComponent);
 
     await userEvent.click(screen.getByRole('button'));
+
     const actions = extractActionsTypes(mockStore.getActions());
 
     expect(actions).toEqual([
       postFavoriteAction.pending.type,
-      postFavoriteAction.rejected.type,
-      //fetchFavoriteOffersAction.pending.type
+      fetchFavoriteOffersAction.pending.type,
+      postFavoriteAction.fulfilled.type,
+      refreshFavoriteCards.type,
+      fetchOffersAction.pending.type,
+      loading.type,
+      fetchFavoriteOffersAction.fulfilled.type,
+      fetchOffersAction.fulfilled.type
     ]);
   });
 });

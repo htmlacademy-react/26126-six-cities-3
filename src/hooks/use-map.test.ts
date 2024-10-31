@@ -1,15 +1,22 @@
 import {renderHook} from '@testing-library/react';
 import useMap from './use-map';
 import { makeFakeCity } from '../utils/moks';
-//import {render, screen} from '@testing-library/react';
 import {useRef} from 'react';
 describe('Hook: useMap', () => {
-
-  it('should be correctly change state', () => {
+  it('should render correctly', () => {
     const fakeCity = makeFakeCity();
-    //vi.mock('leaflet');
-    const { result } = renderHook(() => useMap(useRef(null), fakeCity));
-    //screen.debug();
-    expect(result.current).toEqual(null);
+    const fakeMap = document.createElement('div');
+    const { result } = renderHook(() => useMap(useRef(fakeMap), fakeCity));
+    const map = result.current;
+    if(map) {
+      expect(map.options).toEqual({
+        'center': {
+          'lat': fakeCity.location.latitude,
+          'lng': fakeCity.location.longitude,
+        },
+        'zoom': fakeCity.location.zoom,
+      });
+    }
+    expect(typeof map).toBe('object');
   });
 });

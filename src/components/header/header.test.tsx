@@ -99,6 +99,7 @@ describe('Component: Header', () => {
       email: ''
     } }));
     mockAxiosAdapter.onDelete(APIRoute.Logout).reply(204, []);
+    mockAxiosAdapter.onGet(APIRoute.Offers).reply(200, []);
     render(withStoreComponent);
     await userEvent.click(screen.getByTestId(logoutLinkId));
     const actions = extractActionsTypes(mockStore.getActions());
@@ -107,7 +108,7 @@ describe('Component: Header', () => {
       fetchOffersAction.pending.type,
       loading.type,
       logoutAction.fulfilled.type,
-      fetchOffersAction.rejected.type,
+      fetchOffersAction.fulfilled.type,
     ]);
 
   });

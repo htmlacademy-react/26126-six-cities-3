@@ -44,9 +44,9 @@ function Offer(): JSX.Element|undefined {
     if(authStatus !== AuthorizationStatus.Auth){
       dispatch(redirectToRoute(AppRoute.Login));
     } else {
-      if(offer && activeOfferId){
+      if(offer){
         dispatch(postFavoriteAction({
-          offerId: activeOfferId,
+          offerId: activeOfferId ? activeOfferId : '',
           favoriteStatus:!offer.isFavorite ? 1 : 0
         })).unwrap().then(()=>{
           dispatch(fetchOffersAction(true));

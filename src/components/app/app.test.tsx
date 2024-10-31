@@ -68,16 +68,13 @@ describe('Application Routing', () => {
       isFavoriteLoading: false,
       favoriteStatus: false,
     }}));
-    mockHistory.push(`/${AppRoute.Offer}/${fakeOfferPage.id}`);
-    //const offerContainerTestId = 'offer-page';
+    mockHistory.push(`${AppRoute.Offer}/${fakeOfferPage.id}`);
     render(withStoreComponent);
 
+    expect(screen.getByText(/What's inside/i)).toBeInTheDocument();
+    expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
+    expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
 
-    //expect(screen.getByText(/What's inside/i)).toBeInTheDocument();
-    //expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
-    //expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
-
-    //expect(offerContainerTestId).toBeDefined();
   });
   it('should render "NotFound" when user navigate to non-existent route', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);

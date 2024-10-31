@@ -4,12 +4,15 @@ import { withHistory, withStore } from '../../utils/mock-component';
 import {AuthorizationStatus} from '../../store/const';
 import {makeFakeStore, makeFakeOfferCard} from '../../utils/moks';
 import ReviewForm from './review-form';
-//import {postReviewAction} from '../../store/api-actions';
+import {postReviewAction} from '../../store/api-actions';
+
+import {NewComment} from '../../types/review-type';
 
 import {APIRoute} from '../../store/const';
 import { extractActionsTypes } from '../../utils/moks';
 
 describe('Component: ReviewForm', () => {
+
   it('should render correctly', async () => {
     const STARS_COUNT = 5;
     const inputStarId = 'input-star';
@@ -42,6 +45,7 @@ describe('Component: ReviewForm', () => {
     const textAreaId = 'comment-text';
     const expectedcommentValue = 'keks';
     const expectedInputStarValue = '5';
+
     const withHistoryComponent = withHistory(<ReviewForm />);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
@@ -60,16 +64,21 @@ describe('Component: ReviewForm', () => {
       expectedcommentValue,
     );
 
-    await userEvent.type(
-      starInputs[0],
-      expectedInputStarValue,
-    );
 
+    await userEvent.click(starInputs[0]);
     expect(screen.getByDisplayValue(expectedInputStarValue)).toBeInTheDocument();
     expect(screen.getByDisplayValue(expectedcommentValue)).toBeInTheDocument();
   });
-  it('should not dispatch postReviewAction with empty review', async () => {
+  it('should dispatch postReviewAction', async () => {
     const fakeOffer = makeFakeOfferCard();
+    const fakeServerReplay = { token: 'six-cities-token' };
+
+    const fakeNewCommet: NewComment = {
+      pageId: 'ghghytyty',
+      comment: 'should dispatch "postReviewAction.pending",',
+      rating: 5,
+    };
+
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(<ReviewForm />, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
@@ -81,13 +90,16 @@ describe('Component: ReviewForm', () => {
       isReviewFormDasabled: false
     }
     }));
-    mockAxiosAdapter.onPost(`${APIRoute.Comments}/${fakeOffer.id}`).reply(200, []);
+    mockAxiosAdapter.onPost(`${APIRoute.Comments}/${fakeOffer.id}`, fakeNewCommet).reply(200, fakeServerReplay);
     render(withStoreComponent);
 
     await userEvent.click(screen.getByRole('button'));
+
     const actions = extractActionsTypes(mockStore.getActions());
 
-
-    expect(actions).toEqual([]);
+    expect(actions).toEqual([
+      postReviewAction.pending.type,
+      postReviewAction.rejected.type
+    ]);
   });
 });
