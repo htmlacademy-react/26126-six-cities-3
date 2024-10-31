@@ -50,7 +50,7 @@ function Favorite(): JSX.Element {
             <ul className="favorites__list">
 
               {favoriteCities.map((city)=>(
-                <li key={city} className="favorites__locations-items">
+                <li data-testid="city-favorite" key={city} className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
                       <Link className="locations__item-link" to="#">
@@ -61,7 +61,7 @@ function Favorite(): JSX.Element {
                   <div className="favorites__places">
                     { favoriteOffers.map((item)=> (
                       item.city.name === city ?
-                        <FavoritePlaceCard offer={item} key={item.id}/>
+                        <FavoritePlaceCard data-testid="favorite-card" offer={item} key={item.id}/>
                         : null
                     ))}
                   </div>

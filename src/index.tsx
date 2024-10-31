@@ -12,7 +12,8 @@ import {fetchOffersAction, checkAuthAction} from './store/api-actions';
 store.dispatch(fetchOffersAction(false));
 store.dispatch(checkAuthAction());
 
-
+import HistoryRouter from './components/history-route/history-route';
+import browserHistory from './browser-history';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -20,8 +21,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store = {store}>
-      <ToastContainer />
-      <App/>
+      <HistoryRouter history={browserHistory}>
+        <ToastContainer />
+        <App/>
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>
 );

@@ -11,8 +11,7 @@ import NotFound from '../not-found/not-found';
 import Loading from '../../components/loading/loading';
 import {useAppSelector} from '../../hooks/index';
 
-//import HistoryRouter from '../history-route/history-route';
-//import browserHistory from '../../browser-history';
+
 import {getAuthorizationStatus, getAuthCheckedStatus} from '../../store/user-authorization/selectors';
 
 import {getOffersLoadingStatus} from '../../store/offers-load/selectors';

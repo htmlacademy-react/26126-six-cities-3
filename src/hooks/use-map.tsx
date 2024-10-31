@@ -40,7 +40,6 @@ function useMap(
     }
 
   }, [map, city]);
-
   return map;
 }
 

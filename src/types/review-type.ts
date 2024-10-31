@@ -14,6 +14,5 @@ export type NewComment = {
   pageId: string;
   comment: string;
   rating: number;
-  formRef: HTMLFormElement | null;
 }
 

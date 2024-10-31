@@ -1,13 +1,13 @@
-import {system, name, internet, database, datatype, address, image} from 'faker';
+import {system, name, internet, database, datatype, image} from 'faker';
 import {User} from '../types/state';
-import {OfferType, OfferPage} from '../types/offer-type';
+import {OfferType, OfferPage, City} from '../types/offer-type';
 import {Review} from '../types/review-type';
 import {AuthorizationStatus} from '../store/const';
 
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { createAPI } from '../services/api';
-import { State } from '../types/state';
+import { State} from '../types/state';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
@@ -20,12 +20,12 @@ export const makeFakeUser = (): User => ({
 } as User);
 
 export const makeFakeOfferCard = ():OfferType =>({
-  id: database.column(),
+  id: datatype.string(),
   title:  name.title(),
   type: name.title(),
   price: datatype.number(),
   city: {
-    name: address.city(),
+    name: 'Paris',
     location: {
       latitude: datatype.number(),
       longitude: datatype.number(),
@@ -44,7 +44,7 @@ export const makeFakeOfferCard = ():OfferType =>({
 });
 
 export const makeFakeOfferPage = ():OfferPage =>({
-  id: database.column(),
+  id: datatype.string(),
   title:  name.title(),
   type: name.title(),
   price: datatype.number(),
@@ -73,6 +73,15 @@ export const makeFakeReview = ():Review =>({
   },
   comment: datatype.string(),
   rating:  datatype.number(),
+});
+
+export const makeFakeCity = (): City =>({
+  name: datatype.string(),
+  location: {
+    latitude: datatype.number(),
+    longitude: datatype.number(),
+    zoom: datatype.number(),
+  }
 });
 
 export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);

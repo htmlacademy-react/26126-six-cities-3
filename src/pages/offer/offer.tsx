@@ -44,9 +44,9 @@ function Offer(): JSX.Element|undefined {
     if(authStatus !== AuthorizationStatus.Auth){
       dispatch(redirectToRoute(AppRoute.Login));
     } else {
-      if(offer && activeOfferId){
+      if(offer){
         dispatch(postFavoriteAction({
-          offerId: activeOfferId,
+          offerId: activeOfferId ? activeOfferId : '',
           favoriteStatus:!offer.isFavorite ? 1 : 0
         })).unwrap().then(()=>{
           dispatch(fetchOffersAction(true));
@@ -104,7 +104,7 @@ function Offer(): JSX.Element|undefined {
                   <h1 className="offer__name">
                     {offer.title}
                   </h1>
-                  <button onClick={handleBookmarkButtonClick} className={offer.isFavorite ? 'offer__bookmark-button button offer__bookmark-button--active' : 'offer__bookmark-button button'} type="button">
+                  <button data-testid="bookmark-button" onClick={handleBookmarkButtonClick} className={offer.isFavorite ? 'offer__bookmark-button button offer__bookmark-button--active' : 'offer__bookmark-button button'} type="button">
                     <svg className="offer__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
