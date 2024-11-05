@@ -2,9 +2,6 @@ import {AuthorizationStatus} from '../const';
 import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 import {userAuthorization} from './user-authorization';
 
-//import {makeFakeUser} from '../../utils/moks';
-
-
 describe('UserAuthorization Slice', () => {
   it('should return initial state with empty action', () => {
     const emptyAction = { type: '' };

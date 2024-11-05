@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 
-import {makeFakeOfferCard, makeFakeStore} from '../../utils/moks';
+import {makeFakeOfferCard, makeFakeStore} from '../../utils/moсks';
 import {withHistory, withStore} from '../../utils/mock-component';
 import {AuthorizationStatus} from '../../store/const';
 import CardsList from './cards-list';

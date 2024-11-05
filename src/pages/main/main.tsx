@@ -24,7 +24,6 @@ function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const actualSort = useAppSelector(getSort);
   const actualCity = searchCityParams;
-
   const filtredOffersByCity = getOffersByCity(actualCity, offers);
   const cardsCount = filtredOffersByCity.length;
 

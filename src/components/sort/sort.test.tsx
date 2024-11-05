@@ -1,10 +1,10 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { extractActionsTypes } from '../../utils/moks';
+import { extractActionsTypes } from '../../utils/moсks';
 import {SORT_TYPES} from '../../common';
 import Sort from './sort';
 import {withHistory, withStore} from '../../utils/mock-component';
-import {makeFakeStore} from '../../utils/moks';
+import {makeFakeStore} from '../../utils/moсks';
 import {AuthorizationStatus} from '../../store/const';
 import {sortOffers} from '../../store/app-actions/app-actions';
 describe('Component: Sort', () => {

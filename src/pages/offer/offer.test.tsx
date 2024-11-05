@@ -3,15 +3,15 @@ import userEvent from '@testing-library/user-event';
 import {withHistory, withStore} from '../../utils/mock-component';
 
 import Offer from './offer';
-import {makeFakeStore, makeFakeOfferPage, makeFakeOfferCard} from '../../utils/moks';
+import {makeFakeStore, makeFakeOfferPage, makeFakeOfferCard} from '../../utils/moсks';
 import {APIRoute} from '../../store/const';
-import { extractActionsTypes } from '../../utils/moks';
+import { extractActionsTypes } from '../../utils/moсks';
 import {AuthorizationStatus} from '../../store/const';
 
 import ReviewList from '../../components/review-list/review-list';
 import ReviewForm from '../../components/review-form/review-form';
-import {postFavoriteAction/*, fetchFavoriteOffersAction, fetchOffersAction*/} from '../../store/api-actions';
-//import {loadOffer} from '../../store/offers-load/offers-load';
+import {postFavoriteAction, fetchFavoriteOffersAction, fetchOffersAction} from '../../store/api-actions';
+import {loadOffer, loading} from '../../store/offers-load/offers-load';
 import {redirectToRoute} from '../../store/action';
 
 describe('Component: Offer', () => {
@@ -129,7 +129,6 @@ describe('Component: Offer', () => {
   it('should dispatch postFavoriteAction', async () => {
     const fakeOffer = makeFakeOfferPage();
     const bookmarkButtonId = 'bookmark-button';
-    const fakeServerReplay = { token: 'six-cities-token' };
 
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(<Offer/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
@@ -148,7 +147,7 @@ describe('Component: Offer', () => {
       isFavoriteLoading: false,
       favoriteStatus: false,
     } }));
-    mockAxiosAdapter.onPost(`${APIRoute.Favorite}/${fakeOffer.id}/${0}`).reply(200, fakeServerReplay);
+    mockAxiosAdapter.onPost(`${APIRoute.Favorite}/${fakeOffer.id}/${!fakeOffer.isFavorite ? 1 : 0}`).reply(201);
     mockAxiosAdapter.onGet(APIRoute.Favorite).reply(200, []);
     mockAxiosAdapter.onGet(APIRoute.Offers).reply(200, []);
 
@@ -162,13 +161,13 @@ describe('Component: Offer', () => {
 
     expect(actions).toEqual([
       postFavoriteAction.pending.type,
-      postFavoriteAction.rejected.type,
-      //fetchFavoriteOffersAction.pending.type,
-      //postFavoriteAction.fulfilled.type,
-      //fetchOffersAction.pending.type,
-      //loadOffer.type,
-      //fetchFavoriteOffersAction.fulfilled.type,
-      //fetchOffersAction.fulfilled.type
+      fetchFavoriteOffersAction.pending.type,
+      postFavoriteAction.fulfilled.type,
+      fetchOffersAction.pending.type,
+      loading.type,
+      loadOffer.type,
+      fetchFavoriteOffersAction.fulfilled.type,
+      fetchOffersAction.fulfilled.type
     ]);
   });
   it('should dispatch RedirectAction with NoAth', async () => {

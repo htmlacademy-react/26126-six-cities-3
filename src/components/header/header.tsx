@@ -7,7 +7,7 @@ import Logo from '../logo/logo';
 import {logoutAction} from '../../store/api-actions';
 import {getAuthorizationStatus, getUser, getAuthCheckedStatus, getEmail} from '../../store/user-authorization/selectors';
 
-import {getFavoriteCardsFromOffersList} from '../../store/offers-load/selectors';
+import {getFavoritesLength} from '../../store/offers-load/selectors';
 
 function Header(): JSX.Element {
 
@@ -16,7 +16,8 @@ function Header(): JSX.Element {
   const login = useAppSelector(getUser);
   const email = useAppSelector(getEmail);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-  const favoriteOffers = useAppSelector(getFavoriteCardsFromOffersList);
+  const favoritesLength = useAppSelector(getFavoritesLength);
+
 
   return(
     <header className="header">
@@ -40,7 +41,7 @@ function Header(): JSX.Element {
                     <span className="header__user-name user__name">
                       {login ? login.email : email}
                     </span>
-                    <span className="header__favorite-count">{favoriteOffers.length}</span>
+                    <span className="header__favorite-count">{favoritesLength}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">

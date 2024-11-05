@@ -46,7 +46,7 @@ function Offer(): JSX.Element|undefined {
     } else {
       if(offer){
         dispatch(postFavoriteAction({
-          offerId: activeOfferId ? activeOfferId : '',
+          offerId: offer.id,
           favoriteStatus:!offer.isFavorite ? 1 : 0
         })).unwrap().then(()=>{
           dispatch(fetchOffersAction(true));
@@ -62,7 +62,7 @@ function Offer(): JSX.Element|undefined {
       dispatch(fetchReviewsAction(activeOfferId));
       dispatch(fetchAroundOffersAction(activeOfferId));
     }
-  }, [activeOfferId]);
+  }, [activeOfferId, authStatus]);
 
   if(offer){
     if (isOfferLoading) {
@@ -116,15 +116,15 @@ function Offer(): JSX.Element|undefined {
                     <span style={{ width:getStarsStyle(offer.rating) }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="offer__rating-value rating__value">4.8</span>
+                  <span className="offer__rating-value rating__value">{offer.rating}</span>
                 </div>
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">{offer.type}</li>
                   <li className="offer__feature offer__feature--bedrooms">
-                    {offer.bedrooms} {offer.bedrooms > 0 ? 'Bedrooms' : 'Bedroom'}
+                    {offer.bedrooms} {offer.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max {offer.maxAdults} {offer.maxAdults > 0 ? 'adults' : 'adult'}
+                    Max {offer.maxAdults} {offer.maxAdults > 1 ? 'adults' : 'adult'}
                   </li>
                 </ul>
                 <div className="offer__price">
@@ -141,7 +141,7 @@ function Offer(): JSX.Element|undefined {
                 <div className="offer__host">
                   <h2 className="offer__host-title">Meet the host</h2>
                   <div className="offer__host-user user">
-                    <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                    <div className={offer.host.isPro ? 'offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper' : 'offer__avatar-wrapper user__avatar-wrapper'}>
                       <img
                         className="offer__avatar user__avatar"
                         src={offer.host.avatarUrl}

@@ -2,6 +2,7 @@ import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import MainPage from '../../pages/main/main';
 import {AppRoute} from './const';
+import {AuthorizationStatus} from '../../store/const';
 import Favorite from '../../pages/favorite/favorite';
 import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
@@ -37,7 +38,7 @@ function App() : JSX.Element {
         />
         <Route
           path={AppRoute.Login}
-          element={<Login/>}
+          element={authorizationStatus === AuthorizationStatus.Auth ? <MainPage/> : <Login/> }
         />
         <Route
           path={AppRoute.Favorites}

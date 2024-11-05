@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { withHistory, withStore } from '../../utils/mock-component';
 import {AuthorizationStatus} from '../../store/const';
-import {makeFakeStore} from '../../utils/moks';
+import {makeFakeStore} from '../../utils/moсks';
 import Login from './login';
 
 describe('Component: Login', () => {

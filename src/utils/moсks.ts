@@ -1,4 +1,4 @@
-import {system, name, internet, database, datatype, image} from 'faker';
+import {system, name, internet, datatype, image} from 'faker';
 import {User} from '../types/state';
 import {OfferType, OfferPage, City} from '../types/offer-type';
 import {Review} from '../types/review-type';

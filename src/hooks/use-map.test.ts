@@ -1,6 +1,6 @@
 import {renderHook} from '@testing-library/react';
 import useMap from './use-map';
-import { makeFakeCity } from '../utils/moks';
+import { makeFakeCity } from '../utils/moсks';
 import {useRef} from 'react';
 describe('Hook: useMap', () => {
   it('should render correctly', () => {

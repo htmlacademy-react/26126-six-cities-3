@@ -35,6 +35,7 @@ function Sort(): JSX.Element {
   const handleSortSelect = (event: MouseEvent<HTMLLIElement>)=>{
     const value = event.currentTarget.innerText;
     dispatch(sortOffers(value));
+    setSortTypesList(!sortTypesList);
   };
 
   return (

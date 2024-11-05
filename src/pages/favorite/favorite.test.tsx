@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {withHistory, withStore} from '../../utils/mock-component';
 import Favorite from './favorite';
 import {AuthorizationStatus} from '../../store/const';
-import {makeFakeStore, makeFakeOfferCard} from '../../utils/moks';
+import {makeFakeStore, makeFakeOfferCard} from '../../utils/moсks';
 
 describe('Component: Favorite', () => {
   it('should render correctly', () => {

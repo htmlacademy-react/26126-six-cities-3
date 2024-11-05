@@ -1,5 +1,5 @@
 import {NameSpace} from '../const';
-import {getAroundOffers, getOffersLoadingStatus, getOfferPageLoadingStatus, getFavoriteLoadingStatus, getDataOffer, getDataCard, getOffers, getFavoriteOffers} from './selectors';
+import {getAroundOffers, getOffersLoadingStatus, getOfferPageLoadingStatus, getFavoriteLoadingStatus, getDataOffer, getDataCard, getOffers, getFavoriteOffers, getFavoritesLength} from './selectors';
 
 
 describe('OffersData selectors', () => {
@@ -62,5 +62,10 @@ describe('OffersData selectors', () => {
     const {favoriteOffers} = state[NameSpace.OffersData];
     const result = getFavoriteOffers(state);
     expect(result).toBe(favoriteOffers);
+  });
+  it('should return fevoriteLength', () => {
+    const {favoriteOffers} = state[NameSpace.OffersData];
+    const result = getFavoritesLength(state);
+    expect(result).toBe(favoriteOffers.length);
   });
 });

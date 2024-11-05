@@ -1,16 +1,16 @@
 import {useState, FormEvent, ChangeEvent, useRef} from 'react';
-import {useParams} from 'react-router-dom';
 
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postReviewAction} from '../../store/api-actions';
 import {getDisabledReviewStatus} from '../../store/reviews-load/selectors';
+import {getDataOffer} from '../../store/offers-load/selectors';
 
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const formRef = useRef<HTMLFormElement | null>(null);
-  const params = useParams();
-  const activeOfferId = params.id;
+
+  const offer = useAppSelector(getDataOffer);
 
   const disabled = useAppSelector(getDisabledReviewStatus);
 
@@ -27,9 +27,9 @@ function ReviewForm(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (comment !== null && rating !== null) {
+    if (offer && comment !== null && rating !== null) {
       dispatch(postReviewAction({
-        pageId: activeOfferId ? activeOfferId : '',
+        pageId: offer.id,
         comment: comment,
         rating: rating,
       })).unwrap().then(()=>{
@@ -162,7 +162,7 @@ function ReviewForm(): JSX.Element {
           <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-          disabled={disabled}
+          disabled={comment.length >= 50 && rating >= 1 ? disabled : true}
           className="reviews__submit form__submit button"
           type="submit"
 

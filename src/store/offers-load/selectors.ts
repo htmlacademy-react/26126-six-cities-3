@@ -18,12 +18,8 @@ export const getOffers = (state: Pick<State, NameSpace.OffersData>): OfferType[]
 
 export const getFavoriteOffers = (state: Pick<State, NameSpace.OffersData>): OfferType[] => state[NameSpace.OffersData].favoriteOffers;
 
-export const getFavoriteCardsFromOffersList = (state: Pick<State, NameSpace.OffersData>): OfferType[]=> {
-  const favoriteOffers: OfferType[] = [];
-  state[NameSpace.OffersData].offers.forEach((item)=>{
-    if(item.isFavorite === true) {
-      favoriteOffers.push(item);
-    }
-  });
-  return favoriteOffers;
+export const getFavoritesLength = (state: Pick<State, NameSpace.OffersData>): number=> {
+  const favoriteOffers = state[NameSpace.OffersData].offers.filter((item)=>item.isFavorite === true
+  );
+  return favoriteOffers.length;
 };

@@ -6,9 +6,13 @@ type OfferProps = {
 }
 
 function ReviewList({reviews}:OfferProps): JSX.Element {
+
+  const slicedReviews = [...reviews];
+  const soretedReviews = slicedReviews.sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0,10);
+
   return(
     <ul className="reviews__list">
-      { reviews.map((item)=>(<ReviewItem review={item} key={item.id}/>))}
+      { soretedReviews.map((item)=>(<ReviewItem review={item} key={item.id}/>))}
     </ul>
   );
 }
