@@ -37,7 +37,32 @@ export const makeFakeOfferCard = ():OfferType =>({
     longitude: datatype.number(),
     zoom: datatype.number()
   },
-  isFavorite: datatype.boolean(),
+  isFavorite: false,
+  isPremium: datatype.boolean(),
+  rating: datatype.number(),
+  previewImage: image.imageUrl(),
+});
+
+
+export const makeFakeFavoriteOfferCard = ():OfferType =>({
+  id: datatype.string(),
+  title:  name.title(),
+  type: name.title(),
+  price: datatype.number(),
+  city: {
+    name: 'Paris',
+    location: {
+      latitude: datatype.number(),
+      longitude: datatype.number(),
+      zoom: datatype.number()
+    }
+  },
+  location: {
+    latitude: datatype.number(),
+    longitude: datatype.number(),
+    zoom: datatype.number()
+  },
+  isFavorite: true,
   isPremium: datatype.boolean(),
   rating: datatype.number(),
   previewImage: image.imageUrl(),

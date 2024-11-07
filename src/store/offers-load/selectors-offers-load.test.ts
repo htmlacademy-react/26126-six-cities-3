@@ -1,16 +1,16 @@
 import {NameSpace} from '../const';
 import {getAroundOffers, getOffersLoadingStatus, getOfferPageLoadingStatus, getFavoriteLoadingStatus, getDataOffer, getDataCard, getOffers, getFavoriteOffers, getFavoritesLength} from './selectors';
-
+import {makeFakeOfferCard, makeFakeFavoriteOfferCard, makeFakeOfferPage} from '../../utils/moсks';
 
 describe('OffersData selectors', () => {
   const state = {
     [NameSpace.OffersData]: {
-      offers: [],
+      offers: [makeFakeOfferCard(), makeFakeFavoriteOfferCard()],
       isOffersLoading: false,
-      offer: undefined,
-      offerCard: undefined,
-      aroundOffers: [],
-      favoriteOffers: [],
+      offer: makeFakeOfferPage(),
+      offerCard: makeFakeOfferCard(),
+      aroundOffers: [makeFakeOfferCard()],
+      favoriteOffers: [makeFakeFavoriteOfferCard()],
       isOfferLoading: false,
       isFavoriteLoading: false,
       favoriteStatus: false

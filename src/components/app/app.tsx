@@ -2,11 +2,11 @@ import {Route, Routes} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import MainPage from '../../pages/main/main';
 import {AppRoute} from './const';
-import {AuthorizationStatus} from '../../store/const';
 import Favorite from '../../pages/favorite/favorite';
 import Login from '../../pages/login/login';
 import Offer from '../../pages/offer/offer';
 import PrivateRoute from '../private-route/private-route';
+import LoginPrivateRoute from '../login-private-route/login-private-route';
 import NotFound from '../not-found/not-found';
 
 import Loading from '../../components/loading/loading';
@@ -22,6 +22,7 @@ function App() : JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersLoading = useAppSelector(getOffersLoadingStatus);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+
   if (!isAuthChecked || isOffersLoading) {
     return (
       <Loading />
@@ -38,7 +39,11 @@ function App() : JSX.Element {
         />
         <Route
           path={AppRoute.Login}
-          element={authorizationStatus === AuthorizationStatus.Auth ? <MainPage/> : <Login/> }
+          element={
+            <LoginPrivateRoute status={authorizationStatus}>
+              <Login/>
+            </LoginPrivateRoute>
+          }
         />
         <Route
           path={AppRoute.Favorites}

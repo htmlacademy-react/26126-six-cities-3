@@ -19,7 +19,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
 import {getAroundOffers,getDataOffer, getOffers} from '../../store/offers-load/selectors';
 
-import {getReviews} from '../../store/reviews-load/selectors';
+import {getSortedReviews} from '../../store/reviews-load/selectors';
 import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
 import {getOfferPageLoadingStatus} from '../../store/offers-load/selectors';
 
@@ -27,7 +27,7 @@ function Offer(): JSX.Element|undefined {
   const offers = useAppSelector(getOffers);
 
   const offer = useAppSelector(getDataOffer);
-  const reviews = useAppSelector(getReviews);
+  const reviews = useAppSelector(getSortedReviews);
   const aroundOffers = useAppSelector(getAroundOffers);
   const authStatus = useAppSelector(getAuthorizationStatus);
   const isOfferLoading = useAppSelector(getOfferPageLoadingStatus);
