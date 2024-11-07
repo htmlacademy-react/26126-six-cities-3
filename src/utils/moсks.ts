@@ -1,4 +1,4 @@
-import {system, name, internet, database, datatype, image} from 'faker';
+import {system, name, internet, datatype, image} from 'faker';
 import {User} from '../types/state';
 import {OfferType, OfferPage, City} from '../types/offer-type';
 import {Review} from '../types/review-type';
@@ -37,7 +37,32 @@ export const makeFakeOfferCard = ():OfferType =>({
     longitude: datatype.number(),
     zoom: datatype.number()
   },
-  isFavorite: datatype.boolean(),
+  isFavorite: false,
+  isPremium: datatype.boolean(),
+  rating: datatype.number(),
+  previewImage: image.imageUrl(),
+});
+
+
+export const makeFakeFavoriteOfferCard = ():OfferType =>({
+  id: datatype.string(),
+  title:  name.title(),
+  type: name.title(),
+  price: datatype.number(),
+  city: {
+    name: 'Paris',
+    location: {
+      latitude: datatype.number(),
+      longitude: datatype.number(),
+      zoom: datatype.number()
+    }
+  },
+  location: {
+    latitude: datatype.number(),
+    longitude: datatype.number(),
+    zoom: datatype.number()
+  },
+  isFavorite: true,
   isPremium: datatype.boolean(),
   rating: datatype.number(),
   previewImage: image.imageUrl(),

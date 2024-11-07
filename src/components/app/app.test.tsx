@@ -4,7 +4,7 @@ import {AuthorizationStatus} from '../../store/const';
 import {AppRoute} from './const';
 import App from './app';
 import {withHistory, withStore} from '../../utils/mock-component';
-import {makeFakeStore, makeFakeOfferPage} from '../../utils/moks';
+import {makeFakeStore, makeFakeOfferPage} from '../../utils/moсks';
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;

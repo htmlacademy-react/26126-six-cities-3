@@ -5,10 +5,10 @@ import userEvent from '@testing-library/user-event';
 import {AppRoute} from '../app/const';
 import {withHistory, withStore} from '../../utils/mock-component';
 import Header from './header';
-import {makeFakeUser, makeFakeOfferCard, makeFakeStore} from '../../utils/moks';
+import {makeFakeUser, makeFakeOfferCard, makeFakeStore} from '../../utils/moсks';
 import {AuthorizationStatus} from '../../store/const';
 import {APIRoute} from '../../store/const';
-import { extractActionsTypes } from '../../utils/moks';
+import { extractActionsTypes } from '../../utils/moсks';
 
 import {logoutAction, fetchOffersAction} from '../../store/api-actions';
 import {loading} from '../../store/offers-load/offers-load.js';

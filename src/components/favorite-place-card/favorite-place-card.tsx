@@ -78,7 +78,7 @@ function FavoritePlaceCard(props: PropPlaceCard): JSX.Element{
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${offer.id}`}> {offer.title}</Link>
+          <Link to={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>

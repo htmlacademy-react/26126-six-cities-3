@@ -1,4 +1,4 @@
-import {makeFakeOfferCard, makeFakeOfferPage} from '../../utils/moks';
+import {makeFakeOfferCard, makeFakeOfferPage} from '../../utils/moсks';
 import {fetchOffersAction, fetchAroundOffersAction, fetchOfferPageAction, fetchFavoriteOffersAction} from '../api-actions';
 import {offersLoad, loadOffer, refreshCards, loading, refreshFavoriteCards} from './offers-load';
 

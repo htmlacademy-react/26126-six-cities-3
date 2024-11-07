@@ -1,16 +1,16 @@
 import {NameSpace} from '../const';
-import {getAroundOffers, getOffersLoadingStatus, getOfferPageLoadingStatus, getFavoriteLoadingStatus, getDataOffer, getDataCard, getOffers, getFavoriteOffers} from './selectors';
-
+import {getAroundOffers, getOffersLoadingStatus, getOfferPageLoadingStatus, getFavoriteLoadingStatus, getDataOffer, getDataCard, getOffers, getFavoriteOffers, getFavoritesLength} from './selectors';
+import {makeFakeOfferCard, makeFakeFavoriteOfferCard, makeFakeOfferPage} from '../../utils/moсks';
 
 describe('OffersData selectors', () => {
   const state = {
     [NameSpace.OffersData]: {
-      offers: [],
+      offers: [makeFakeOfferCard(), makeFakeFavoriteOfferCard()],
       isOffersLoading: false,
-      offer: undefined,
-      offerCard: undefined,
-      aroundOffers: [],
-      favoriteOffers: [],
+      offer: makeFakeOfferPage(),
+      offerCard: makeFakeOfferCard(),
+      aroundOffers: [makeFakeOfferCard()],
+      favoriteOffers: [makeFakeFavoriteOfferCard()],
       isOfferLoading: false,
       isFavoriteLoading: false,
       favoriteStatus: false
@@ -62,5 +62,10 @@ describe('OffersData selectors', () => {
     const {favoriteOffers} = state[NameSpace.OffersData];
     const result = getFavoriteOffers(state);
     expect(result).toBe(favoriteOffers);
+  });
+  it('should return fevoriteLength', () => {
+    const {favoriteOffers} = state[NameSpace.OffersData];
+    const result = getFavoritesLength(state);
+    expect(result).toBe(favoriteOffers.length);
   });
 });
