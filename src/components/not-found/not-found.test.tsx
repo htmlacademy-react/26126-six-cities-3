@@ -4,7 +4,7 @@ import NotFound from './not-found';
 
 describe('Component: NotFoundScreen', () => {
   it('should render correctly', () => {
-    const expectedHeaderText = 'Page is not Found';
+    const expectedHeaderText = '404 not Found';
     const expectedLinkText = 'На главную';
     const linkTestId = 'main-link';
 

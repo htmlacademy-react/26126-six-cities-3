@@ -1,6 +1,6 @@
 import {makeFakeOfferCard, makeFakeOfferPage} from '../../utils/moсks';
 import {fetchOffersAction, fetchAroundOffersAction, fetchOfferPageAction, fetchFavoriteOffersAction} from '../api-actions';
-import {offersLoad, loadOffer, refreshCards, loading, refreshFavoriteCards} from './offers-load';
+import {offersLoad, loadOffer, refreshCards, loading} from './offers-load';
 
 describe('OffersLoad Slice', () => {
   it('should return initial state with empty action', () => {
@@ -301,34 +301,4 @@ describe('OffersLoad Slice', () => {
     const result = offersLoad.reducer(initialState, loading(actualOffersLoading));
     expect(result).toEqual(expectedState);
   });
-
-  it('should return state with actual favorite status for favorite page', () => {
-    const favoriteCardMock = makeFakeOfferCard();
-    const initialState = {
-      offers: [],
-      isOffersLoading: false,
-      offer: undefined,
-      offerCard: undefined,
-      aroundOffers: [],
-      favoriteOffers: [favoriteCardMock],
-      isOfferLoading: false,
-      isFavoriteLoading: false,
-      favoriteStatus: false
-    };
-
-    const expectedState = {
-      offers: [],
-      isOffersLoading: false,
-      offer: undefined,
-      offerCard: undefined,
-      aroundOffers: [],
-      favoriteOffers: [{...favoriteCardMock, isFavorite:!favoriteCardMock.isFavorite}],
-      isOfferLoading: false,
-      isFavoriteLoading: false,
-      favoriteStatus: false
-    };
-    const result = offersLoad.reducer(initialState, refreshFavoriteCards(favoriteCardMock));
-    expect(result).toEqual(expectedState);
-  });
-
 });

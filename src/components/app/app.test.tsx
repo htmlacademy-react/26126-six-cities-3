@@ -82,7 +82,7 @@ describe('Application Routing', () => {
     const unknownRoute = '/unknown-route';
     mockHistory.push(unknownRoute);
     render(withStoreComponent);
-    expect(screen.getByText('Page is not Found')).toBeInTheDocument();
+    expect(screen.getByText('404 not Found')).toBeInTheDocument();
     expect(screen.getByText('На главную')).toBeInTheDocument();
   });
 });

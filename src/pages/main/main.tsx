@@ -56,7 +56,7 @@ function MainPage(): JSX.Element {
               <b className="places__found">{cardsCount} {cardsCount > 1 ? 'places' : 'place'} to stay in {actualCity}</b>
               <Sort/>
               <div className="cities__places-list places__list tabs__content">
-                <CardsList offers={filtredOffers}/>
+                <CardsList offers={filtredOffers} isNearList={false}/>
               </div>
             </section>
             <div className="cities__right-section">

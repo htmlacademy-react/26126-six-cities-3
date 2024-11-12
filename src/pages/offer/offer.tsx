@@ -17,15 +17,13 @@ import {fetchOfferPageAction, fetchReviewsAction, fetchAroundOffersAction, postF
 import {redirectToRoute} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks/index';
 
-import {getAroundOffers,getDataOffer, getOffers} from '../../store/offers-load/selectors';
+import {getAroundOffers, getDataOffer} from '../../store/offers-load/selectors';
 
 import {getSortedReviews} from '../../store/reviews-load/selectors';
 import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
 import {getOfferPageLoadingStatus} from '../../store/offers-load/selectors';
 
 function Offer(): JSX.Element|undefined {
-  const offers = useAppSelector(getOffers);
-
   const offer = useAppSelector(getDataOffer);
   const reviews = useAppSelector(getSortedReviews);
   const aroundOffers = useAppSelector(getAroundOffers);
@@ -34,7 +32,6 @@ function Offer(): JSX.Element|undefined {
 
   const params = useParams();
   const activeOfferId = params.id;
-  const selectedOffer = offers.find((item) => item.id === activeOfferId);
 
   const firstAroundOffers = aroundOffers.slice(0,3);
 
@@ -81,7 +78,7 @@ function Offer(): JSX.Element|undefined {
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
                 {
-                  offer.images.map((srcImg)=>(
+                  offer.images.slice(0,6).map((srcImg)=>(
                     <div key={srcImg} className="offer__image-wrapper">
                       <img
                         className="offer__image"
@@ -151,7 +148,7 @@ function Offer(): JSX.Element|undefined {
                       />
                     </div>
                     <span className="offer__user-name">{offer.host.name}</span>
-                    <span className="offer__user-status">{offer.host.isPro ? 'Pro' : ''}</span>
+                    {offer.host.isPro ? <span className="offer__user-status">Pro</span> : ''}
                   </div>
                   <div className="offer__description">
                     {offer.description}
@@ -169,7 +166,7 @@ function Offer(): JSX.Element|undefined {
             </div>
             <section className="offer__map map" >
               <Map offers={firstAroundOffers}
-                selectedOffer={selectedOffer}
+                selectedOffer={offer}
                 mapWidth = {'1145px'}
                 mapHeight = {'579px'}
                 mapMargin ={'auto'}
@@ -183,7 +180,7 @@ function Offer(): JSX.Element|undefined {
               Other places in the neighbourhood
               </h2>
               <div className="near-places__list places__list">
-                <CardsList offers={aroundOffers}/>
+                <CardsList offers={firstAroundOffers} isNearList/>
               </div>
             </section>
           </div>

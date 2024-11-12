@@ -24,7 +24,7 @@ function NotFound():JSX.Element {
             <section className="cities__no-places">
               <div className="cities__status-wrapper tabs__content">
                 <p className="cities__status-description">
-                  Page is not Found
+                  404 not Found
                 </p>
                 <Link data-testid="main-link" to="/">На главную</Link>
               </div>
