@@ -27,7 +27,6 @@ describe('Component: Offer', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     },
     DATA_OFFERS: {
       offers: [],
@@ -66,7 +65,6 @@ describe('Component: Offer', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     },
     DATA_OFFERS: {
       offers: [],
@@ -105,7 +103,6 @@ describe('Component: Offer', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     },
     DATA_OFFERS: {
       offers: [],
@@ -134,7 +131,6 @@ describe('Component: Offer', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     },
     DATA_OFFERS: {
       offers: [],
@@ -178,7 +174,6 @@ describe('Component: Offer', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     },
     DATA_OFFERS: {
       offers: [],

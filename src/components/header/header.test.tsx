@@ -29,7 +29,6 @@ describe('Component: Header', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: fakeUser,
       isLoginFormDasabled: false,
-      email: ''
     }, DATA_OFFERS: {
       offers: [fakeOffer],
       isOffersLoading: false,
@@ -60,7 +59,6 @@ describe('Component: Header', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -96,7 +94,6 @@ describe('Component: Header', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
     mockAxiosAdapter.onDelete(APIRoute.Logout).reply(204, []);
     mockAxiosAdapter.onGet(APIRoute.Offers).reply(200, []);

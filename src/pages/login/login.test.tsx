@@ -14,7 +14,6 @@ describe('Component: Login', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -35,7 +34,6 @@ describe('Component: Login', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     const preparedComponent = withStoreComponent;

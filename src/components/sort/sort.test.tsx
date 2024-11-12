@@ -17,7 +17,6 @@ describe('Component: Sort', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -36,7 +35,6 @@ describe('Component: Sort', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     render(withStoreComponent);
@@ -59,7 +57,6 @@ describe('Component: Sort', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     render(withStoreComponent);
