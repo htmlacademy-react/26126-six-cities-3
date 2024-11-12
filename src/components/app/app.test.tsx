@@ -38,7 +38,6 @@ describe('Application Routing', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     mockHistory.push(AppRoute.Favorites);
@@ -56,7 +55,6 @@ describe('Application Routing', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     }, DATA_OFFERS: {
       offers: [],
       isOffersLoading: false,
