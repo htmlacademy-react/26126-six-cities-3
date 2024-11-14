@@ -7,7 +7,7 @@ import {APIRoute} from '../../store/const';
 import { extractActionsTypes } from '../../utils/moсks';
 import {AuthorizationStatus} from '../../store/const';
 import {postFavoriteAction, fetchFavoriteOffersAction, fetchOffersAction} from '../../store/api-actions';
-import {refreshFavoriteCards, loading} from '../../store/offers-load/offers-load';
+import {loading} from '../../store/offers-load/offers-load';
 
 describe('Component: FavoritePlaceCard', () => {
   it('should render correct', () => {
@@ -39,7 +39,6 @@ describe('Component: FavoritePlaceCard', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     }}));
 
     mockAxiosAdapter.onPost(`${APIRoute.Favorite}/${fakeOffer.id}/${!fakeOffer.isFavorite ? 1 : 0}`).reply(200, fakeServerReplay);
@@ -57,7 +56,6 @@ describe('Component: FavoritePlaceCard', () => {
       postFavoriteAction.pending.type,
       fetchFavoriteOffersAction.pending.type,
       postFavoriteAction.fulfilled.type,
-      refreshFavoriteCards.type,
       fetchOffersAction.pending.type,
       loading.type,
       fetchFavoriteOffersAction.fulfilled.type,

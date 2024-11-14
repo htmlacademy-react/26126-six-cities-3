@@ -10,11 +10,10 @@ describe('Component: CardsList', () => {
     const fakeOffers = [makeFakeOfferCard()];
     const cardValueTestId = 'placeCard';
 
-    const { withStoreComponent } = withStore(<CardsList offers={fakeOffers}/>, makeFakeStore({ USER: {
+    const { withStoreComponent } = withStore(<CardsList offers={fakeOffers} isNearList={false}/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     const preparedComponent = withHistory(withStoreComponent);

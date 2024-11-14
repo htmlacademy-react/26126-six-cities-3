@@ -21,7 +21,6 @@ describe('Component: Favorite', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     },
     DATA_OFFERS: {
       offers: [fakeOffer],
@@ -53,7 +52,6 @@ describe('Component: Favorite', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     },
     DATA_OFFERS: {
       offers: [],

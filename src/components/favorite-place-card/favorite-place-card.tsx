@@ -4,7 +4,6 @@ import {OfferType} from '../../types/offer-type';
 import {AppRoute} from '../app/const';
 
 import {postFavoriteAction, fetchOffersAction} from '../../store/api-actions';
-import {refreshFavoriteCards} from '../../store/offers-load/offers-load';
 import {useAppDispatch} from '../../hooks/index';
 
 
@@ -17,12 +16,10 @@ function FavoritePlaceCard(props: PropPlaceCard): JSX.Element{
   const dispatch = useAppDispatch();
 
   const handleBookmarkButtonClick = () => {
-
     dispatch(postFavoriteAction({
       offerId: offer.id,
       favoriteStatus: !offer.isFavorite ? 1 : 0
     })).unwrap().then(()=>{
-      dispatch(refreshFavoriteCards(offer));
       dispatch(fetchOffersAction(true));
     });
   };

@@ -131,11 +131,11 @@ function ReviewForm(): JSX.Element {
           className="form__rating-input visually-hidden"
           name="rating"
           defaultValue={1}
-          id="1-star"
+          id="1-stars"
           type="radio"
         />
         <label
-          htmlFor="1-star"
+          htmlFor="1-stars"
           className="reviews__rating-label form__rating-label"
           title="terribly"
         >
@@ -153,6 +153,7 @@ function ReviewForm(): JSX.Element {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
+        minLength={50}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -162,7 +163,7 @@ function ReviewForm(): JSX.Element {
           <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-          disabled={comment.length >= 50 && rating >= 1 ? disabled : true}
+          disabled={comment.length >= 50 && comment.length <= 300 && rating >= 1 ? disabled : true}
           className="reviews__submit form__submit button"
           type="submit"
 

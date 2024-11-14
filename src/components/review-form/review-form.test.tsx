@@ -23,7 +23,6 @@ describe('Component: ReviewForm', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -51,7 +50,6 @@ describe('Component: ReviewForm', () => {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
       isLoginFormDasabled: false,
-      email: ''
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -84,7 +82,6 @@ describe('Component: ReviewForm', () => {
         authorizationStatus: AuthorizationStatus.Auth,
         user: null,
         isLoginFormDasabled: false,
-        email: ''
       },
       DATA_OFFERS: {
         offers: [],

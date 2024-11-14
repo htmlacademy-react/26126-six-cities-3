@@ -31,6 +31,7 @@ export type OfferType = {
 
 export type OfferPage = {
     id: OfferType['id'];
+    city: City;
     title: OfferType['title'];
     type: OfferType['type'];
     price: OfferType['price'];

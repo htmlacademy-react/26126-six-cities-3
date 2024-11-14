@@ -5,19 +5,18 @@ import {AuthorizationStatus} from '../../store/const';
 import Logo from '../logo/logo';
 
 import {logoutAction} from '../../store/api-actions';
-import {getAuthorizationStatus, getUser, getAuthCheckedStatus, getEmail} from '../../store/user-authorization/selectors';
+import {getAuthorizationStatus, getUser, getAuthCheckedStatus} from '../../store/user-authorization/selectors';
 
-import {getFavoritesLength} from '../../store/offers-load/selectors';
+import {getFavoritesLength, getFavoriteOffers} from '../../store/offers-load/selectors';
 
 function Header(): JSX.Element {
 
   const authStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const login = useAppSelector(getUser);
-  const email = useAppSelector(getEmail);
+  const user = useAppSelector(getUser);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
   const favoritesLength = useAppSelector(getFavoritesLength);
-
+  const favorites = useAppSelector(getFavoriteOffers);
 
   return(
     <header className="header">
@@ -35,13 +34,13 @@ function Header(): JSX.Element {
                     to={AppRoute.Favorites}
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage:
-                    `url(${login ? login.avatarUrl : '../img/avatar.svg'})`}}
+                    `url(${user ? user.avatarUrl : '../img/avatar.svg'})`}}
                     >
                     </div>
                     <span className="header__user-name user__name">
-                      {login ? login.email : email}
+                      {user ? user.email : ''}
                     </span>
-                    <span className="header__favorite-count">{favoritesLength}</span>
+                    <span className="header__favorite-count">{favoritesLength ? favoritesLength : favorites.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -59,16 +58,10 @@ function Header(): JSX.Element {
               </ul> :
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <Link
-                    className="header__nav-link header__nav-link--profile"
-                    to="#"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link className="header__nav-link" to={AppRoute.Login}>
-                    <span className="header__signout">Sign in</span>
+                  <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
+                    <span className="header__login">Sign in</span>
                   </Link>
                 </li>
               </ul>}

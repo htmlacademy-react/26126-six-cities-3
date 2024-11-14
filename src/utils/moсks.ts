@@ -70,6 +70,14 @@ export const makeFakeFavoriteOfferCard = ():OfferType =>({
 
 export const makeFakeOfferPage = ():OfferPage =>({
   id: datatype.string(),
+  city:{
+    name: datatype.string(),
+    location: {
+      latitude: datatype.number(),
+      longitude: datatype.number(),
+      zoom: datatype.number(),
+    }
+  },
   title:  name.title(),
   type: name.title(),
   price: datatype.number(),
@@ -116,7 +124,6 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
     authorizationStatus: AuthorizationStatus.NoAuth,
     user: null,
     isLoginFormDasabled: false,
-    email: ''
   },
   DATA_OFFERS: {
     offers: [],

@@ -4,15 +4,18 @@ import {getToken} from './token';
 
 import {toast} from 'react-toastify';
 
+
 type DetailMessageType = {
   type: string;
   message: string;
 }
 
+
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.INTERNAL_SERVER_ERROR]: true,
   [StatusCodes.UNAUTHORIZED]: true,
-  [StatusCodes.NOT_FOUND]: true
+  [StatusCodes.NOT_FOUND]: true,
 };
 
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];

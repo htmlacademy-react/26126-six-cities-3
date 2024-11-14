@@ -16,12 +16,13 @@ import {hoverOffer} from '../../store/app-actions/app-actions';
 
 type PropPlaceCard = {
   offer: OfferType;
+  isNearCard: boolean;
 }
 
 
 function PlaceCard(props: PropPlaceCard): JSX.Element {
   const dispatch = useAppDispatch();
-  const {offer} = props;
+  const {offer, isNearCard} = props;
   const {id, title, type, price, isPremium, isFavorite, rating, previewImage} = offer;
 
   const authStatus = useAppSelector(getAuthorizationStatus);
@@ -50,7 +51,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
   return (
     <article
       data-testid ="placeCard"
-      className="cities__card place-card"
+      className={isNearCard ? 'near-places__card place-card' : 'cities__card place-card'}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
@@ -59,7 +60,7 @@ function PlaceCard(props: PropPlaceCard): JSX.Element {
           <span>Premium</span>
         </div> : null}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={isNearCard ? 'near-places__image-wrapper place-card__image-wrapper' : 'cities__image-wrapper place-card__image-wrapper'}>
         <Link data-testid ="placeCard-link" to={`${AppRoute.Offer}/${id}`} >
           <img
             className="place-card__image"

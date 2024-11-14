@@ -1,7 +1,7 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
-import {City, OfferType} from '../../types/offer-type';
+import {City, OfferType, OfferPage} from '../../types/offer-type';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../map/const';
 import {CITY_LOCATIONS} from '../../common';
 
@@ -9,7 +9,7 @@ import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   offers: OfferType[];
-  selectedOffer: OfferType | undefined;
+  selectedOffer: OfferType| OfferPage | undefined;
   mapWidth: string;
   mapHeight: string;
   mapMargin: string;
@@ -51,25 +51,25 @@ function Map(props: MapProps): JSX.Element {
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      offers.forEach((item) => {
+      if(isOfferPageMap) {
+        const selectedMarker = new Marker(
+          selectedOffer !== undefined ? {
+            lat: selectedOffer.city.location.latitude,
+            lng: selectedOffer.city.location.longitude
+          } : {
+            lat: 0,
+            lng: 0
+          });
+        selectedMarker
+          .setIcon(currentCustomIcon)
+          .addTo(markerLayer);
+      }
+      offers.map((item) => {
         const marker = new Marker({
           lat: item.location.latitude,
           lng: item.location.longitude
         },{ alt: 'pin-image'});
 
-        if(isOfferPageMap) {
-          const selectedMarker = new Marker(
-            selectedOffer !== undefined ? {
-              lat: selectedOffer.location.latitude,
-              lng: selectedOffer.location.longitude
-            } : {
-              lat: 0,
-              lng: 0
-            });
-          selectedMarker
-            .setIcon(currentCustomIcon)
-            .addTo(markerLayer);
-        }
 
         marker
           .setIcon(
