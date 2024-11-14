@@ -29,9 +29,12 @@ export const reviewsLoad = createSlice({
       .addCase(postReviewAction.fulfilled, (state) => {
         state.isReviewFormDasabled = false;
       })
-      .addCase(postReviewAction.rejected, (state, action) => {
+      .addCase(postReviewAction.rejected, (state) => {
         state.isReviewFormDasabled = false;
-        toast.warn(action.error.message);
+
+        toast.warn('Неизвестная ошибка');
+
+
       });
   }
 });
