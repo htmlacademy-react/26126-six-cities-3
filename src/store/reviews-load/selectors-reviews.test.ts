@@ -6,7 +6,7 @@ describe('ReviewsData selectors', () => {
   const state = {
     [NameSpace.ReviewsData]: {
       reviews: [makeFakeReview()],
-      isReviewFormDasabled: false
+      isReviewFormDasabled: false,
     }
   };
   it('should return reviews', () => {

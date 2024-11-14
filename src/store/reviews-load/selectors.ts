@@ -7,4 +7,3 @@ export const getSortedReviews = (state: Pick<State, NameSpace.ReviewsData>): Rev
 
 export const getDisabledReviewStatus = (state: Pick<State, NameSpace.ReviewsData>): boolean => state[NameSpace.ReviewsData].isReviewFormDasabled;
 
-
