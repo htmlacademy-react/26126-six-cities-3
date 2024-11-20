@@ -15,7 +15,6 @@ import {INITIAL_CITY} from '../../common';
 import {getOffers} from '../../store/offers-load/selectors';
 import {getActiveOfferId, getSort} from '../../store/app-actions/selectors';
 
-
 function MainPage(): JSX.Element {
 
   const [searchParams, ] = useSearchParams();

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { withHistory, withStore } from '../../utils/mock-component';
 import {AuthorizationStatus} from '../../store/const';
-import {makeFakeStore} from '../../utils/moсks';
+import {makeFakeStore} from '../../utils/mocks';
 import Login from './login';
 
 describe('Component: Login', () => {
@@ -13,7 +13,7 @@ describe('Component: Login', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -33,7 +33,7 @@ describe('Component: Login', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withStoreComponent;

@@ -1,7 +1,7 @@
 import {render, screen} from '@testing-library/react';
 
 import Map from '../../components/map/map';
-import {makeFakeOfferCard} from '../../utils/moсks';
+import {makeFakeOfferCard} from '../../utils/mocks';
 describe('Component: Map', () => {
   it('should render correct isOfferPageMap = false', () => {
     const fakeOffer = makeFakeOfferCard();

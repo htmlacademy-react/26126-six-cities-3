@@ -2,14 +2,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { withHistory, withStore } from '../../utils/mock-component';
 import {AuthorizationStatus} from '../../store/const';
-import {makeFakeStore, makeFakeOfferPage} from '../../utils/moсks';
+import {makeFakeStore, makeFakeOfferPage} from '../../utils/mocks';
 import ReviewForm from './review-form';
 import {postReviewAction, fetchReviewsAction} from '../../store/api-actions';
 
 import {NewComment} from '../../types/review-type';
 
 import {APIRoute} from '../../store/const';
-import { extractActionsTypes } from '../../utils/moсks';
+import { extractActionsTypes } from '../../utils/mocks';
 
 describe('Component: ReviewForm', () => {
 
@@ -22,7 +22,7 @@ describe('Component: ReviewForm', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -49,7 +49,7 @@ describe('Component: ReviewForm', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -81,7 +81,7 @@ describe('Component: ReviewForm', () => {
       USER: {
         authorizationStatus: AuthorizationStatus.Auth,
         user: null,
-        isLoginFormDasabled: false,
+        isLoginFormDisabled: false,
       },
       DATA_OFFERS: {
         offers: [],
@@ -96,7 +96,7 @@ describe('Component: ReviewForm', () => {
       },
       DATA_REVIEWS: {
         reviews: [],
-        isReviewFormDasabled: false
+        isReviewFormDisabled: false
       }
     }));
     mockAxiosAdapter.onGet(`${APIRoute.Comments}/${fakeOffer.id}`).reply(200,[]);

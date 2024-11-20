@@ -5,6 +5,9 @@ import {postReviewAction} from '../../store/api-actions';
 import {getDisabledReviewStatus} from '../../store/reviews-load/selectors';
 import {getDataOffer} from '../../store/offers-load/selectors';
 
+const MIN_COMMENT_LENGTH = 50;
+const MAX_COMMENT_LENGTH = 300;
+const MIN_RATING = 1;
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -50,7 +53,7 @@ function ReviewForm(): JSX.Element {
       <div className="reviews__rating-form form__rating">
         <input
           data-testid ="input-star"
-          onChange = {handleRatingButtonClick}
+          onInput = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -69,7 +72,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           data-testid ="input-star"
-          onChange = {handleRatingButtonClick}
+          onInput = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -88,7 +91,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           data-testid ="input-star"
-          onChange = {handleRatingButtonClick}
+          onInput = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -107,7 +110,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           data-testid ="input-star"
-          onChange = {handleRatingButtonClick}
+          onInput = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -126,7 +129,7 @@ function ReviewForm(): JSX.Element {
         </label>
         <input
           data-testid ="input-star"
-          onChange = {handleRatingButtonClick}
+          onInput = {handleRatingButtonClick}
           disabled={disabled}
           className="form__rating-input visually-hidden"
           name="rating"
@@ -147,13 +150,13 @@ function ReviewForm(): JSX.Element {
       <textarea
         data-testid = "comment-text"
         disabled={disabled}
-        onChange={handleReviewChange}
+        onInput={handleReviewChange}
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
-        minLength={50}
+        minLength={MIN_COMMENT_LENGTH}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -163,7 +166,7 @@ function ReviewForm(): JSX.Element {
           <b className="reviews__text-amount">50 characters</b>.
         </p>
         <button
-          disabled={comment.length >= 50 && comment.length <= 300 && rating >= 1 ? disabled : true}
+          disabled={comment.length >= MIN_COMMENT_LENGTH && comment.length <= MAX_COMMENT_LENGTH && rating >= MIN_RATING ? disabled : true}
           className="reviews__submit form__submit button"
           type="submit"
 

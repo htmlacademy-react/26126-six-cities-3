@@ -8,7 +8,7 @@ describe('UserAuthorization Slice', () => {
     const expectedState = {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = userAuthorization.reducer(expectedState, emptyAction);
     expect(result).toEqual(expectedState);
@@ -19,7 +19,7 @@ describe('UserAuthorization Slice', () => {
     const expectedState = {
       authorizationStatus: AuthorizationStatus.Unknown,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = userAuthorization.reducer(undefined, emptyAction);
     expect(result).toEqual(expectedState);
@@ -29,12 +29,12 @@ describe('UserAuthorization Slice', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const expectedState = {
       authorizationStatus: AuthorizationStatus.Auth,
       user: undefined,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = userAuthorization.reducer(initialState, checkAuthAction.fulfilled);
     expect(result).toEqual(expectedState);
@@ -44,12 +44,12 @@ describe('UserAuthorization Slice', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const expectedState = {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = userAuthorization.reducer(initialState, checkAuthAction.rejected);
     expect(result).toEqual(expectedState);
@@ -59,12 +59,12 @@ describe('UserAuthorization Slice', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const expectedState = {
       authorizationStatus: AuthorizationStatus.Auth,
       user: undefined,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = userAuthorization.reducer(initialState, loginAction.fulfilled);
     expect(result).toEqual(expectedState);
@@ -74,12 +74,12 @@ describe('UserAuthorization Slice', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const expectedState = {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = userAuthorization.reducer(initialState, loginAction.rejected);
     expect(result).toEqual(expectedState);
@@ -89,12 +89,12 @@ describe('UserAuthorization Slice', () => {
     const initialState = {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const expectedState = {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = userAuthorization.reducer(initialState, logoutAction.fulfilled);
     expect(result).toEqual(expectedState);

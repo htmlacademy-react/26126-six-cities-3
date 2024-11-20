@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 
-import {makeFakeReview} from '../../utils/moсks';
+import {makeFakeReview} from '../../utils/mocks';
 import {withHistory, withStore} from '../../utils/mock-component';
 import ReviewList from './review-list';
 

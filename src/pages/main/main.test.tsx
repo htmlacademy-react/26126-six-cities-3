@@ -5,7 +5,7 @@ import Header from '../../components/header/header';
 import CitiesList from '../../components/cities-list/cities-list';
 import CardsList from '../../components/cards-list/cards-list';
 import Sort from '../../components/sort/sort';
-import {makeFakeStore, makeFakeOfferCard} from '../../utils/moсks';
+import {makeFakeStore, makeFakeOfferCard} from '../../utils/mocks';
 import {AuthorizationStatus} from '../../store/const';
 
 describe('Component: Main', () => {
@@ -19,7 +19,7 @@ describe('Component: Main', () => {
     const { withStoreComponent } = withStore(<Main/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [fakeOffer],
@@ -49,7 +49,7 @@ describe('Component: Main', () => {
     const { withStoreComponent } = withStore(<Main/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [],

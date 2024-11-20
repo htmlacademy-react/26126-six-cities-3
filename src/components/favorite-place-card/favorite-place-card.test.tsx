@@ -2,9 +2,9 @@ import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {withHistory, withStore} from '../../utils/mock-component';
 import FavoritePlaceCard from './favorite-place-card';
-import {makeFakeStore, makeFakeOfferCard} from '../../utils/moсks';
+import {makeFakeStore, makeFakeOfferCard} from '../../utils/mocks';
 import {APIRoute} from '../../store/const';
-import { extractActionsTypes } from '../../utils/moсks';
+import { extractActionsTypes } from '../../utils/mocks';
 import {AuthorizationStatus} from '../../store/const';
 import {postFavoriteAction, fetchFavoriteOffersAction, fetchOffersAction} from '../../store/api-actions';
 import {loading} from '../../store/offers-load/offers-load';
@@ -38,7 +38,7 @@ describe('Component: FavoritePlaceCard', () => {
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(<FavoritePlaceCard offer={fakeOffer}/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     }}));
 
     mockAxiosAdapter.onPost(`${APIRoute.Favorite}/${fakeOffer.id}/${!fakeOffer.isFavorite ? 1 : 0}`).reply(200, fakeServerReplay);

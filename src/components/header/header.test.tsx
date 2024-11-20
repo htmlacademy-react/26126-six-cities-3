@@ -5,10 +5,10 @@ import userEvent from '@testing-library/user-event';
 import {AppRoute} from '../app/const';
 import {withHistory, withStore} from '../../utils/mock-component';
 import Header from './header';
-import {makeFakeUser, makeFakeOfferCard, makeFakeStore} from '../../utils/moсks';
+import {makeFakeUser, makeFakeOfferCard, makeFakeStore} from '../../utils/mocks.js';
 import {AuthorizationStatus} from '../../store/const';
 import {APIRoute} from '../../store/const';
-import { extractActionsTypes } from '../../utils/moсks';
+import { extractActionsTypes } from '../../utils/mocks.js';
 
 import {logoutAction, fetchOffersAction} from '../../store/api-actions';
 import {loading} from '../../store/offers-load/offers-load.js';
@@ -28,7 +28,7 @@ describe('Component: Header', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: fakeUser,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     }, DATA_OFFERS: {
       offers: [fakeOffer],
       isOffersLoading: false,
@@ -58,7 +58,7 @@ describe('Component: Header', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -93,7 +93,7 @@ describe('Component: Header', () => {
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(withHistory(<Header />), makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
     mockAxiosAdapter.onDelete(APIRoute.Logout).reply(204, []);
     mockAxiosAdapter.onGet(APIRoute.Offers).reply(200, []);

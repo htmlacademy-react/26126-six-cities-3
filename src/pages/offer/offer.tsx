@@ -22,6 +22,10 @@ import {getSortedReviews} from '../../store/reviews-load/selectors';
 import {getAuthorizationStatus} from '../../store/user-authorization/selectors';
 import {getOfferPageLoadingStatus} from '../../store/offers-load/selectors';
 
+const OFFERS_AROUND_LENGTH = 3;
+const IMAGES_COUNT = 6;
+const REVIEWS_COUNT_IN_PAGE = 10;
+
 function Offer(): JSX.Element|undefined {
   const offer = useAppSelector(getDataOffer);
   const reviews = useAppSelector(getSortedReviews);
@@ -32,7 +36,7 @@ function Offer(): JSX.Element|undefined {
   const params = useParams();
   const activeOfferId = params.id;
 
-  const firstAroundOffers = aroundOffers.slice(0,3);
+  const firstAroundOffers = aroundOffers.slice(0,OFFERS_AROUND_LENGTH);
 
   const dispatch = useAppDispatch();
 
@@ -86,7 +90,7 @@ if(offer){
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
               {
-                offer.images.slice(0,6).map((srcImg)=>(
+                offer.images.slice(0,IMAGES_COUNT).map((srcImg)=>(
                   <div key={srcImg} className="offer__image-wrapper">
                     <img
                       className="offer__image"
@@ -166,7 +170,7 @@ if(offer){
                 <h2 className="reviews__title">
                   Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewList reviews={reviews.slice(0,10)}/>
+                <ReviewList reviews={reviews.slice(0,REVIEWS_COUNT_IN_PAGE)}/>
                 {authStatus === AuthorizationStatus.Auth ?
                   <ReviewForm/> : ''}
               </section>

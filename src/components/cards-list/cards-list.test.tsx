@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 
-import {makeFakeOfferCard, makeFakeStore} from '../../utils/moсks';
+import {makeFakeOfferCard, makeFakeStore} from '../../utils/mocks';
 import {withHistory, withStore} from '../../utils/mock-component';
 import {AuthorizationStatus} from '../../store/const';
 import CardsList from './cards-list';
@@ -13,7 +13,7 @@ describe('Component: CardsList', () => {
     const { withStoreComponent } = withStore(<CardsList offers={fakeOffers} isNearList={false}/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withHistory(withStoreComponent);

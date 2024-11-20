@@ -123,7 +123,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   USER: {
     authorizationStatus: AuthorizationStatus.NoAuth,
     user: null,
-    isLoginFormDasabled: false,
+    isLoginFormDisabled: false,
   },
   DATA_OFFERS: {
     offers: [],
@@ -143,7 +143,7 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   },
   DATA_REVIEWS: {
     reviews: [],
-    isReviewFormDasabled: false
+    isReviewFormDisabled: false
   },
   ...initialState ?? {},
 });

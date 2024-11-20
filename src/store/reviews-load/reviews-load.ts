@@ -7,7 +7,7 @@ import {toast} from 'react-toastify';
 
 const initialState: ReviewsLoad = {
   reviews: [],
-  isReviewFormDasabled: false,
+  isReviewFormDisabled: false,
 };
 
 export const reviewsLoad = createSlice({
@@ -17,24 +17,21 @@ export const reviewsLoad = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        state.isReviewFormDasabled = false;
+        state.isReviewFormDisabled = false;
         state.reviews = action.payload.sort((a,b)=> new Date(b.date).getTime() - new Date(a.date).getTime());
       })
       .addCase(fetchReviewsAction.rejected, (state) => {
-        state.isReviewFormDasabled = false;
+        state.isReviewFormDisabled = false;
       })
       .addCase(postReviewAction.pending, (state) => {
-        state.isReviewFormDasabled = true;
+        state.isReviewFormDisabled = true;
       })
       .addCase(postReviewAction.fulfilled, (state) => {
-        state.isReviewFormDasabled = false;
+        state.isReviewFormDisabled = false;
       })
       .addCase(postReviewAction.rejected, (state) => {
-        state.isReviewFormDasabled = false;
-
+        state.isReviewFormDisabled = false;
         toast.warn('Неизвестная ошибка');
-
-
       });
   }
 });

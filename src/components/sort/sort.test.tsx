@@ -1,10 +1,10 @@
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { extractActionsTypes } from '../../utils/moсks';
+import { extractActionsTypes } from '../../utils/mocks';
 import {SORT_TYPES} from '../../common';
 import Sort from './sort';
 import {withHistory, withStore} from '../../utils/mock-component';
-import {makeFakeStore} from '../../utils/moсks';
+import {makeFakeStore} from '../../utils/mocks';
 import {AuthorizationStatus} from '../../store/const';
 import {sortOffers} from '../../store/app-actions/app-actions';
 describe('Component: Sort', () => {
@@ -16,7 +16,7 @@ describe('Component: Sort', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withStoreComponent;
@@ -34,7 +34,7 @@ describe('Component: Sort', () => {
     const { withStoreComponent, mockStore} = withStore(withHistory(<Sort/>), makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     render(withStoreComponent);
@@ -56,7 +56,7 @@ describe('Component: Sort', () => {
     const { withStoreComponent} = withStore(withHistory(<Sort/>), makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     render(withStoreComponent);
