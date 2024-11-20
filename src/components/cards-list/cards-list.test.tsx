@@ -13,7 +13,7 @@ describe('Component: CardsList', () => {
     const { withStoreComponent } = withStore(<CardsList offers={fakeOffers} isNearList={false}/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     const preparedComponent = withHistory(withStoreComponent);
