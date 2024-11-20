@@ -4,7 +4,7 @@ import {AuthorizationStatus} from '../../store/const';
 import {AppRoute} from './const';
 import App from './app';
 import {withHistory, withStore} from '../../utils/mock-component';
-import {makeFakeStore, makeFakeOfferPage, makeFakeReview} from '../../utils/moсks';
+import {makeFakeStore, makeFakeOfferPage, makeFakeReview} from '../../utils/mocks';
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
@@ -37,7 +37,7 @@ describe('Application Routing', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     } }));
 
     mockHistory.push(AppRoute.Favorites);
@@ -55,7 +55,7 @@ describe('Application Routing', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     }, DATA_OFFERS: {
       offers: [],
       isOffersLoading: false,
@@ -69,7 +69,7 @@ describe('Application Routing', () => {
     },
     DATA_REVIEWS: {
       reviews: [fakeReview],
-      isReviewFormDasabled: false
+      isReviewFormDisabled: false
     },
     }));
     mockHistory.push(`${AppRoute.Offer}/${fakeOfferPage.id}`);

@@ -1,7 +1,7 @@
 import { AuthorizationStatus, NameSpace } from '../const';
 import {UserAuth} from '../../types/state';
 import {getAuthCheckedStatus, getAuthorizationStatus, getDisabledStatus, getUser} from './selectors';
-import {makeFakeUser} from '../../utils/moсks';
+import {makeFakeUser} from '../../utils/mocks';
 
 
 describe('UserProcess selectors', () => {
@@ -10,7 +10,7 @@ describe('UserProcess selectors', () => {
     const state: UserAuth = {
       authorizationStatus,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = getAuthorizationStatus({ [NameSpace.User]: state });
     expect(result).toBe(authorizationStatus);
@@ -20,7 +20,7 @@ describe('UserProcess selectors', () => {
     const state: UserAuth = {
       authorizationStatus,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = getAuthCheckedStatus({ [NameSpace.User]: state });
     expect(result).toBe(true);
@@ -30,21 +30,21 @@ describe('UserProcess selectors', () => {
     const state: UserAuth = {
       authorizationStatus,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const result = getAuthCheckedStatus({ [NameSpace.User]: state });
     expect(result).toBe(false);
   });
-  it('should return isLoginFormDasabled status', () => {
+  it('should return isLoginFormDisabled status', () => {
     const authorizationStatus = AuthorizationStatus.NoAuth;
     const state: UserAuth = {
       authorizationStatus,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
-    const {isLoginFormDasabled} = state;
+    const {isLoginFormDisabled} = state;
     const result = getDisabledStatus({ [NameSpace.User]: state });
-    expect(result).toBe(isLoginFormDasabled);
+    expect(result).toBe(isLoginFormDisabled);
   });
 
   it('should return user', () => {
@@ -52,7 +52,7 @@ describe('UserProcess selectors', () => {
     const state: UserAuth = {
       authorizationStatus,
       user: makeFakeUser(),
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     };
     const {user} = state;
     const result = getUser({ [NameSpace.User]: state });

@@ -1,12 +1,12 @@
 import {NameSpace} from '../const';
 import {getSortedReviews, getDisabledReviewStatus} from './selectors';
-import {makeFakeReview} from '../../utils/moсks';
+import {makeFakeReview} from '../../utils/mocks';
 
 describe('ReviewsData selectors', () => {
   const state = {
     [NameSpace.ReviewsData]: {
       reviews: [makeFakeReview()],
-      isReviewFormDasabled: false,
+      isReviewFormDisabled: false,
     }
   };
   it('should return reviews', () => {
@@ -16,8 +16,8 @@ describe('ReviewsData selectors', () => {
   });
 
   it('should return isReviewFormDasabled status', () => {
-    const {isReviewFormDasabled} = state[NameSpace.ReviewsData];
+    const {isReviewFormDisabled} = state[NameSpace.ReviewsData];
     const result = getDisabledReviewStatus(state);
-    expect(result).toBe(isReviewFormDasabled);
+    expect(result).toBe(isReviewFormDisabled);
   });
 });

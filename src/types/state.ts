@@ -18,7 +18,7 @@ export type User = {
 export type UserAuth = {
   authorizationStatus: AuthorizationStatus;
   user: User| null;
-  isLoginFormDasabled: boolean;
+  isLoginFormDisabled: boolean;
 };
 
 export type OffersLoad = {
@@ -35,7 +35,7 @@ export type OffersLoad = {
 
 export type ReviewsLoad = {
   reviews: Review[];
-  isReviewFormDasabled: boolean;
+  isReviewFormDisabled: boolean;
 }
 
 export type AppActions = {

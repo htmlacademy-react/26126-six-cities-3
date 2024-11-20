@@ -3,7 +3,7 @@ import { MemoryHistory, createMemoryHistory } from 'history';
 import {AppRoute} from '../app/const';
 import App from '../app/app';
 import {withHistory, withStore} from '../../utils/mock-component';
-import {makeFakeStore} from '../../utils/moсks';
+import {makeFakeStore} from '../../utils/mocks';
 
 
 describe('Component: HistoryRoute', () => {

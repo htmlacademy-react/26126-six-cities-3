@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import {withHistory, withStore} from '../../utils/mock-component';
 import Favorite from './favorite';
 import {AuthorizationStatus} from '../../store/const';
-import {makeFakeStore, makeFakeOfferCard} from '../../utils/moсks';
+import {makeFakeStore, makeFakeOfferCard} from '../../utils/mocks';
 
 describe('Component: Favorite', () => {
   it('should render correctly', () => {
@@ -20,7 +20,7 @@ describe('Component: Favorite', () => {
     const { withStoreComponent } = withStore(<Favorite/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [fakeOffer],
@@ -51,7 +51,7 @@ describe('Component: Favorite', () => {
     const { withStoreComponent } = withStore(<Favorite/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [],

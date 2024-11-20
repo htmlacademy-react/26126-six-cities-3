@@ -10,8 +10,8 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   offers: OfferType[];
   selectedOffer: OfferType| OfferPage | undefined;
-  mapWidth: string;
-  mapHeight: string;
+  mapWidth: React.CSSProperties['width'];
+  mapHeight: React.CSSProperties['height'];
   mapMargin: string;
   actualCity?: string;
   isOfferPageMap: boolean;

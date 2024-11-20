@@ -3,9 +3,9 @@ import userEvent from '@testing-library/user-event';
 import {withHistory, withStore} from '../../utils/mock-component';
 
 import Offer from './offer';
-import {makeFakeStore, makeFakeOfferPage, makeFakeOfferCard} from '../../utils/moсks';
+import {makeFakeStore, makeFakeOfferPage, makeFakeOfferCard} from '../../utils/mocks';
 import {APIRoute} from '../../store/const';
-import { extractActionsTypes } from '../../utils/moсks';
+import { extractActionsTypes } from '../../utils/mocks';
 import {AuthorizationStatus} from '../../store/const';
 
 import ReviewList from '../../components/review-list/review-list';
@@ -26,7 +26,7 @@ describe('Component: Offer', () => {
     const { withStoreComponent } = withStore(<Offer/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [],
@@ -64,7 +64,7 @@ describe('Component: Offer', () => {
     const { withStoreComponent } = withStore(<Offer/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [],
@@ -102,7 +102,7 @@ describe('Component: Offer', () => {
     const { withStoreComponent } = withStore(<Offer/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [],
@@ -130,7 +130,7 @@ describe('Component: Offer', () => {
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(<Offer/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.Auth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [],
@@ -173,7 +173,7 @@ describe('Component: Offer', () => {
     const { withStoreComponent, mockStore } = withStore(<Offer/>, makeFakeStore({ USER: {
       authorizationStatus: AuthorizationStatus.NoAuth,
       user: null,
-      isLoginFormDasabled: false,
+      isLoginFormDisabled: false,
     },
     DATA_OFFERS: {
       offers: [],

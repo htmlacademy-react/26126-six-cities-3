@@ -1,6 +1,6 @@
 import {NameSpace} from '../const';
 import {getAroundOffers, getOffersLoadingStatus, getOfferPageLoadingStatus, getFavoriteLoadingStatus, getDataOffer, getDataCard, getOffers, getFavoriteOffers, getFavoritesLength} from './selectors';
-import {makeFakeOfferCard, makeFakeFavoriteOfferCard, makeFakeOfferPage} from '../../utils/moсks';
+import {makeFakeOfferCard, makeFakeFavoriteOfferCard, makeFakeOfferPage} from '../../utils/mocks';
 
 describe('OffersData selectors', () => {
   const state = {

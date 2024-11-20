@@ -1,4 +1,4 @@
-import {makeFakeReview} from '../../utils/moсks';
+import {makeFakeReview} from '../../utils/mocks';
 import {fetchReviewsAction, postReviewAction} from '../api-actions';
 import {reviewsLoad} from './reviews-load';
 
@@ -7,7 +7,7 @@ describe('ReviewsLoad Slice', () => {
     const emptyAction = { type: '' };
     const expectedState = {
       reviews: [],
-      isReviewFormDasabled: false
+      isReviewFormDisabled: false
     };
     const result = reviewsLoad.reducer(expectedState, emptyAction);
     expect(result).toEqual(expectedState);
@@ -18,7 +18,7 @@ describe('ReviewsLoad Slice', () => {
     const emptyAction = { type: '' };
     const expectedState = {
       reviews: [],
-      isReviewFormDasabled: false
+      isReviewFormDisabled: false
     };
     const result = reviewsLoad.reducer(undefined, emptyAction);
     expect(result).toEqual(expectedState);
@@ -27,7 +27,7 @@ describe('ReviewsLoad Slice', () => {
   it('should set "isReviewFormDasabled" to "true" with "postReviewAction.pending"', () => {
     const expectedState = {
       reviews: [],
-      isReviewFormDasabled: true
+      isReviewFormDisabled: true
     };
     const result = reviewsLoad.reducer(undefined, postReviewAction.pending);
     expect(result).toEqual(expectedState);
@@ -42,7 +42,7 @@ describe('ReviewsLoad Slice', () => {
     };
     const expectedState = {
       reviews: [],
-      isReviewFormDasabled: false
+      isReviewFormDisabled: false
     };
 
     const result = reviewsLoad.reducer(
@@ -55,7 +55,7 @@ describe('ReviewsLoad Slice', () => {
   it('should set "isReviewFormDasabled" to "false" with "postReviewAction.rejected"', () => {
     const expectedState = {
       reviews: [],
-      isReviewFormDasabled: false
+      isReviewFormDisabled: false
     };
     const result = reviewsLoad.reducer(
       undefined,
@@ -69,7 +69,7 @@ describe('ReviewsLoad Slice', () => {
     const mockReview = makeFakeReview();
     const expectedState = {
       reviews: [mockReview],
-      isReviewFormDasabled: false
+      isReviewFormDisabled: false
     };
 
     const result = reviewsLoad.reducer(
@@ -82,7 +82,7 @@ describe('ReviewsLoad Slice', () => {
   it('should set "isReviewFormDasabled" to "false" with "fetchReviewsAction.rejected"', () => {
     const expectedState = {
       reviews: [],
-      isReviewFormDasabled: false
+      isReviewFormDisabled: false
     };
     const result = reviewsLoad.reducer(
       undefined,
