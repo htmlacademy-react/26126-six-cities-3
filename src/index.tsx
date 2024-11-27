@@ -1,3 +1,4 @@
+import 'react-toastify/dist/ReactToastify.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {Provider} from 'react-redux';
@@ -6,14 +7,14 @@ import App from '../src/components/app/app';
 
 import {store} from './store/index';
 import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import {fetchOffersAction, checkAuthAction} from './store/api-actions';
+import HistoryRouter from './components/history-route/history-route';
+import browserHistory from './browser-history';
 
 store.dispatch(fetchOffersAction(false));
 store.dispatch(checkAuthAction());
 
-import HistoryRouter from './components/history-route/history-route';
-import browserHistory from './browser-history';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
